@@ -1,0 +1,7 @@
+*
+!.gitignore
+!*/
+!/*/src/**
+!/*/*.png
+!/*/create_proj.tcl
+*.swp
