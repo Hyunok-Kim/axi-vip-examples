@@ -32,13 +32,14 @@ module AxisAddOne(
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TREADY" *)
   input         m_axis_tready
 );
-  wire [7:0] data0 = s_axis_tdata[7:0] + 8'h1; // @[AxisAddOne.scala 10:34]
-  wire [7:0] data1 = s_axis_tdata[15:8] + 8'h1; // @[AxisAddOne.scala 11:35]
-  wire [7:0] data2 = s_axis_tdata[23:16] + 8'h1; // @[AxisAddOne.scala 12:36]
-  wire [7:0] data3 = s_axis_tdata[31:24] + 8'h1; // @[AxisAddOne.scala 13:36]
-  wire [23:0] _m_axis_tdata_T_1 = {data3,data2,data1}; // @[AxisAddOne.scala 15:34]
+  wire [7:0] data8x4_0 = s_axis_tdata[7:0] + 8'h1; // @[AxisAddOne.scala 12:48]
+  wire [7:0] data8x4_1 = s_axis_tdata[15:8] + 8'h1; // @[AxisAddOne.scala 12:48]
+  wire [7:0] data8x4_2 = s_axis_tdata[23:16] + 8'h1; // @[AxisAddOne.scala 12:48]
+  wire [7:0] data8x4_3 = s_axis_tdata[31:24] + 8'h1; // @[AxisAddOne.scala 12:48]
+  wire [15:0] m_axis_tdata_lo = {data8x4_1,data8x4_0}; // @[AxisAddOne.scala 15:27]
+  wire [15:0] m_axis_tdata_hi = {data8x4_3,data8x4_2}; // @[AxisAddOne.scala 15:27]
   assign s_axis_tready = m_axis_tready; // @[AxisAddOne.scala 18:17]
-  assign m_axis_tdata = {_m_axis_tdata_T_1,data0}; // @[AxisAddOne.scala 15:43]
+  assign m_axis_tdata = {m_axis_tdata_hi,m_axis_tdata_lo}; // @[AxisAddOne.scala 15:27]
   assign m_axis_tkeep = s_axis_tkeep; // @[AxisAddOne.scala 16:16]
   assign m_axis_tvalid = s_axis_tvalid; // @[AxisAddOne.scala 17:17]
 endmodule
