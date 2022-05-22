@@ -59,6 +59,8 @@ initial begin
     @(negedge aclk);
      
     aresetn = 1;
+
+    @(negedge aclk);
     
     for (i=0; i<256; i++) begin
         data_wr[7:0] = i*4;
