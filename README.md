@@ -12,3 +12,6 @@
 
 ## AxiMM2STest
 ![axi mm2s](AxiMM2STest/axi_mm2s.png)
+
+## AxiS2MMTest
+![axi s2mm](AxiS2MMTest/axi_s2mm.png)

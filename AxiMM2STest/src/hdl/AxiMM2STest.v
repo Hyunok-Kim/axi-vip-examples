@@ -581,7 +581,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module RdDmaInfo(
+module DmaInfo(
   input  [31:0] addr,
   input  [31:0] blength,
   output [31:0] offset,
@@ -589,18 +589,18 @@ module RdDmaInfo(
   output [3:0]  fkeep,
   output [3:0]  lkeep
 );
-  wire [29:0] waddr = addr[31:2]; // @[RdDmaInfo.scala 13:20]
-  wire [31:0] addr_n = addr + blength; // @[RdDmaInfo.scala 15:21]
-  wire [31:0] _wlength_T_1 = addr_n + 32'h3; // @[RdDmaInfo.scala 16:23]
-  wire [29:0] _wlength_T_4 = _wlength_T_1[31:2] - waddr; // @[RdDmaInfo.scala 16:34]
-  wire [6:0] _fkeep_T_1 = 7'hf << addr[1:0]; // @[RdDmaInfo.scala 17:22]
-  wire [2:0] _GEN_0 = {{1'd0}, addr_n[1:0]}; // @[RdDmaInfo.scala 18:67]
-  wire [2:0] _lkeep_T_4 = 3'h4 - _GEN_0; // @[RdDmaInfo.scala 18:67]
-  wire [3:0] _lkeep_T_5 = 4'hf >> _lkeep_T_4; // @[RdDmaInfo.scala 18:59]
-  assign offset = {waddr, 2'h0}; // @[RdDmaInfo.scala 14:19]
-  assign wlength = {{2'd0}, _wlength_T_4}; // @[RdDmaInfo.scala 16:11]
-  assign fkeep = _fkeep_T_1[3:0]; // @[RdDmaInfo.scala 17:9]
-  assign lkeep = addr_n[1:0] == 2'h0 ? 4'hf : _lkeep_T_5; // @[RdDmaInfo.scala 18:15]
+  wire [29:0] waddr = addr[31:2]; // @[DmaInfo.scala 13:20]
+  wire [31:0] addr_n = addr + blength; // @[DmaInfo.scala 15:21]
+  wire [31:0] _wlength_T_1 = addr_n + 32'h3; // @[DmaInfo.scala 16:23]
+  wire [29:0] _wlength_T_4 = _wlength_T_1[31:2] - waddr; // @[DmaInfo.scala 16:34]
+  wire [6:0] _fkeep_T_1 = 7'hf << addr[1:0]; // @[DmaInfo.scala 17:22]
+  wire [2:0] _GEN_0 = {{1'd0}, addr_n[1:0]}; // @[DmaInfo.scala 18:67]
+  wire [2:0] _lkeep_T_4 = 3'h4 - _GEN_0; // @[DmaInfo.scala 18:67]
+  wire [3:0] _lkeep_T_5 = 4'hf >> _lkeep_T_4; // @[DmaInfo.scala 18:59]
+  assign offset = {waddr, 2'h0}; // @[DmaInfo.scala 14:19]
+  assign wlength = {{2'd0}, _wlength_T_4}; // @[DmaInfo.scala 16:11]
+  assign fkeep = _fkeep_T_1[3:0]; // @[DmaInfo.scala 17:9]
+  assign lkeep = addr_n[1:0] == 2'h0 ? 4'hf : _lkeep_T_5; // @[DmaInfo.scala 18:15]
 endmodule
 module AxiMM2STest(
 
@@ -747,12 +747,12 @@ module AxiMM2STest(
   wire [31:0] read_master_m_tdata; // @[AxiMM2STest.scala 17:27]
   wire [3:0] read_master_m_tkeep; // @[AxiMM2STest.scala 17:27]
   wire  read_master_m_tvalid; // @[AxiMM2STest.scala 17:27]
-  wire [31:0] rdDmaInfo_addr; // @[AxiMM2STest.scala 22:25]
-  wire [31:0] rdDmaInfo_blength; // @[AxiMM2STest.scala 22:25]
-  wire [31:0] rdDmaInfo_offset; // @[AxiMM2STest.scala 22:25]
-  wire [31:0] rdDmaInfo_wlength; // @[AxiMM2STest.scala 22:25]
-  wire [3:0] rdDmaInfo_fkeep; // @[AxiMM2STest.scala 22:25]
-  wire [3:0] rdDmaInfo_lkeep; // @[AxiMM2STest.scala 22:25]
+  wire [31:0] dmaInfo_addr; // @[AxiMM2STest.scala 22:23]
+  wire [31:0] dmaInfo_blength; // @[AxiMM2STest.scala 22:23]
+  wire [31:0] dmaInfo_offset; // @[AxiMM2STest.scala 22:23]
+  wire [31:0] dmaInfo_wlength; // @[AxiMM2STest.scala 22:23]
+  wire [3:0] dmaInfo_fkeep; // @[AxiMM2STest.scala 22:23]
+  wire [3:0] dmaInfo_lkeep; // @[AxiMM2STest.scala 22:23]
   reg  done; // @[AxiMM2STest.scala 14:21]
   AxiCtrlMM2S axi_ctrl ( // @[AxiMM2STest.scala 11:24]
     .clock(axi_ctrl_clock),
@@ -797,13 +797,13 @@ module AxiMM2STest(
     .m_tkeep(read_master_m_tkeep),
     .m_tvalid(read_master_m_tvalid)
   );
-  RdDmaInfo rdDmaInfo ( // @[AxiMM2STest.scala 22:25]
-    .addr(rdDmaInfo_addr),
-    .blength(rdDmaInfo_blength),
-    .offset(rdDmaInfo_offset),
-    .wlength(rdDmaInfo_wlength),
-    .fkeep(rdDmaInfo_fkeep),
-    .lkeep(rdDmaInfo_lkeep)
+  DmaInfo dmaInfo ( // @[AxiMM2STest.scala 22:23]
+    .addr(dmaInfo_addr),
+    .blength(dmaInfo_blength),
+    .offset(dmaInfo_offset),
+    .wlength(dmaInfo_wlength),
+    .fkeep(dmaInfo_fkeep),
+    .lkeep(dmaInfo_lkeep)
   );
   assign s_axi_arready = axi_ctrl_s_axi_arready; // @[AxiMM2STest.scala 12:18]
   assign s_axi_rdata = axi_ctrl_s_axi_rdata; // @[AxiMM2STest.scala 12:18]
@@ -834,16 +834,16 @@ module AxiMM2STest(
   assign read_master_clock = clock;
   assign read_master_reset = reset;
   assign read_master_ctrl_start = axi_ctrl_start; // @[AxiMM2STest.scala 19:26]
-  assign read_master_ctrl_offset = rdDmaInfo_offset; // @[AxiMM2STest.scala 26:27]
-  assign read_master_ctrl_length = rdDmaInfo_wlength; // @[AxiMM2STest.scala 27:27]
-  assign read_master_ctrl_fkeep = rdDmaInfo_fkeep; // @[AxiMM2STest.scala 28:26]
-  assign read_master_ctrl_lkeep = rdDmaInfo_lkeep; // @[AxiMM2STest.scala 29:26]
+  assign read_master_ctrl_offset = dmaInfo_offset; // @[AxiMM2STest.scala 26:27]
+  assign read_master_ctrl_length = dmaInfo_wlength; // @[AxiMM2STest.scala 27:27]
+  assign read_master_ctrl_fkeep = dmaInfo_fkeep; // @[AxiMM2STest.scala 28:26]
+  assign read_master_ctrl_lkeep = dmaInfo_lkeep; // @[AxiMM2STest.scala 29:26]
   assign read_master_m_axi_arready = m_axi_arready; // @[AxiMM2STest.scala 18:21]
   assign read_master_m_axi_rdata = m_axi_rdata; // @[AxiMM2STest.scala 18:21]
   assign read_master_m_axi_rvalid = m_axi_rvalid; // @[AxiMM2STest.scala 18:21]
   assign read_master_m_axi_rlast = m_axi_rlast; // @[AxiMM2STest.scala 18:21]
-  assign rdDmaInfo_addr = axi_ctrl_read_addr; // @[AxiMM2STest.scala 23:18]
-  assign rdDmaInfo_blength = axi_ctrl_read_length; // @[AxiMM2STest.scala 24:21]
+  assign dmaInfo_addr = axi_ctrl_read_addr; // @[AxiMM2STest.scala 23:16]
+  assign dmaInfo_blength = axi_ctrl_read_length; // @[AxiMM2STest.scala 24:19]
   always @(posedge clock) begin
     if (reset) begin // @[AxiMM2STest.scala 14:21]
       done <= 1'h0; // @[AxiMM2STest.scala 14:21]
