@@ -29,6 +29,7 @@ bit aclk=0;
 bit aresetn = 0;
 bit [31:0] addr_reg = 32'h4000_0000, addr_bram = 32'hC000_0000, addr_bram2 = 32'hD000_0000;
 bit [31:0] data_wr, data_rd, data_rd2;
+bit [3:0] data_keep;
 int i;
 always #5ns aclk = ~aclk;
 
@@ -106,7 +107,8 @@ initial begin
     forever begin
         slave_agent.monitor.item_collected_port.get(rd_transaction);
         data_rd2 = rd_transaction.get_data_beat();
-        $display("data_rd2 = 0x%x", data_rd2);
+        data_keep = rd_transaction.get_keep_beat();
+        $display("data_rd2 = 0x%x, data_keep = 0x%x", data_rd2, data_keep);
     end
 
 end

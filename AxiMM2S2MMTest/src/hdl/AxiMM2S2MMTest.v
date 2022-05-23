@@ -241,23 +241,18 @@ module UpDownLoadCounter(
 `endif // RANDOMIZE_REG_INIT
   reg [23:0] count_r; // @[UpDownLoadCounter.scala 20:24]
   reg  is_zero_r; // @[UpDownLoadCounter.scala 21:26]
-  wire [23:0] _count_r_T_7 = load_value - 24'h1; // @[UpDownLoadCounter.scala 29:39]
-  wire [23:0] _count_r_T_13 = count_r - 24'h1; // @[UpDownLoadCounter.scala 33:51]
-  wire  _is_zero_r_T_8 = decr ? decr & count_r == 24'h1 : is_zero_r; // @[UpDownLoadCounter.scala 42:23]
-  wire  _GEN_4 = load ? load_value == 24'h0 : _is_zero_r_T_8; // @[UpDownLoadCounter.scala 40:{17,29} 42:17]
+  wire [23:0] _count_r_T_3 = count_r - 24'h1; // @[UpDownLoadCounter.scala 30:51]
+  wire  _is_zero_r_T_8 = decr ? decr & count_r == 24'h1 : is_zero_r; // @[UpDownLoadCounter.scala 39:23]
+  wire  _GEN_4 = load ? load_value == 24'h0 : _is_zero_r_T_8; // @[UpDownLoadCounter.scala 37:{17,29} 39:17]
   assign count = count_r; // @[UpDownLoadCounter.scala 23:9]
-  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 37:11]
+  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 34:11]
   always @(posedge clock) begin
     if (reset) begin // @[UpDownLoadCounter.scala 20:24]
       count_r <= 24'h0; // @[UpDownLoadCounter.scala 20:24]
     end else if (load) begin // @[UpDownLoadCounter.scala 26:17]
-      if (decr) begin // @[Mux.scala 101:16]
-        count_r <= _count_r_T_7;
-      end else begin
-        count_r <= load_value;
-      end
-    end else if (decr) begin // @[UpDownLoadCounter.scala 33:30]
-      count_r <= _count_r_T_13; // @[UpDownLoadCounter.scala 33:40]
+      count_r <= load_value; // @[UpDownLoadCounter.scala 27:15]
+    end else if (decr) begin // @[UpDownLoadCounter.scala 30:30]
+      count_r <= _count_r_T_3; // @[UpDownLoadCounter.scala 30:40]
     end
     is_zero_r <= reset | _GEN_4; // @[UpDownLoadCounter.scala 21:{26,26}]
   end
@@ -322,22 +317,20 @@ module UpDownLoadCounter_1(
 `endif // RANDOMIZE_REG_INIT
   reg [1:0] count_r; // @[UpDownLoadCounter.scala 20:24]
   reg  is_zero_r; // @[UpDownLoadCounter.scala 21:26]
-  wire  _count_r_T_1 = incr & ~decr; // @[UpDownLoadCounter.scala 28:15]
-  wire  _count_r_T_5 = ~incr & decr; // @[UpDownLoadCounter.scala 29:16]
-  wire [1:0] _count_r_T_11 = count_r + 2'h1; // @[UpDownLoadCounter.scala 32:51]
-  wire [1:0] _count_r_T_13 = count_r - 2'h1; // @[UpDownLoadCounter.scala 33:51]
-  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 37:11]
+  wire [1:0] _count_r_T_1 = count_r + 2'h1; // @[UpDownLoadCounter.scala 29:51]
+  wire [1:0] _count_r_T_3 = count_r - 2'h1; // @[UpDownLoadCounter.scala 30:51]
+  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 34:11]
   always @(posedge clock) begin
     if (reset) begin // @[UpDownLoadCounter.scala 20:24]
       count_r <= 2'h3; // @[UpDownLoadCounter.scala 20:24]
-    end else if (_count_r_T_1) begin // @[UpDownLoadCounter.scala 32:30]
-      count_r <= _count_r_T_11; // @[UpDownLoadCounter.scala 32:40]
-    end else if (_count_r_T_5) begin // @[UpDownLoadCounter.scala 33:30]
-      count_r <= _count_r_T_13; // @[UpDownLoadCounter.scala 33:40]
+    end else if (incr & ~decr) begin // @[UpDownLoadCounter.scala 29:30]
+      count_r <= _count_r_T_1; // @[UpDownLoadCounter.scala 29:40]
+    end else if (~incr & decr) begin // @[UpDownLoadCounter.scala 30:30]
+      count_r <= _count_r_T_3; // @[UpDownLoadCounter.scala 30:40]
     end
     if (reset) begin // @[UpDownLoadCounter.scala 21:26]
       is_zero_r <= 1'h0; // @[UpDownLoadCounter.scala 21:26]
-    end else if (incr ^ decr) begin // @[UpDownLoadCounter.scala 42:23]
+    end else if (incr ^ decr) begin // @[UpDownLoadCounter.scala 39:23]
       is_zero_r <= decr & count_r == 2'h1 | incr & count_r == 2'h3;
     end
   end
@@ -639,26 +632,21 @@ module UpDownLoadCounter_3(
 `endif // RANDOMIZE_REG_INIT
   reg [7:0] count_r; // @[UpDownLoadCounter.scala 20:24]
   reg  is_zero_r; // @[UpDownLoadCounter.scala 21:26]
-  wire [7:0] _count_r_T_7 = load_value - 8'h1; // @[UpDownLoadCounter.scala 29:39]
-  wire [7:0] _count_r_T_13 = count_r - 8'h1; // @[UpDownLoadCounter.scala 33:51]
-  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 37:11]
+  wire [7:0] _count_r_T_3 = count_r - 8'h1; // @[UpDownLoadCounter.scala 30:51]
+  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 34:11]
   always @(posedge clock) begin
     if (reset) begin // @[UpDownLoadCounter.scala 20:24]
       count_r <= 8'hff; // @[UpDownLoadCounter.scala 20:24]
     end else if (load) begin // @[UpDownLoadCounter.scala 26:17]
-      if (decr) begin // @[Mux.scala 101:16]
-        count_r <= _count_r_T_7;
-      end else begin
-        count_r <= load_value;
-      end
-    end else if (decr) begin // @[UpDownLoadCounter.scala 33:30]
-      count_r <= _count_r_T_13; // @[UpDownLoadCounter.scala 33:40]
+      count_r <= load_value; // @[UpDownLoadCounter.scala 27:15]
+    end else if (decr) begin // @[UpDownLoadCounter.scala 30:30]
+      count_r <= _count_r_T_3; // @[UpDownLoadCounter.scala 30:40]
     end
     if (reset) begin // @[UpDownLoadCounter.scala 21:26]
       is_zero_r <= 1'h0; // @[UpDownLoadCounter.scala 21:26]
-    end else if (load) begin // @[UpDownLoadCounter.scala 40:17]
-      is_zero_r <= load_value == 8'h0; // @[UpDownLoadCounter.scala 40:29]
-    end else if (decr) begin // @[UpDownLoadCounter.scala 42:23]
+    end else if (load) begin // @[UpDownLoadCounter.scala 37:17]
+      is_zero_r <= load_value == 8'h0; // @[UpDownLoadCounter.scala 37:29]
+    end else if (decr) begin // @[UpDownLoadCounter.scala 39:23]
       is_zero_r <= decr & count_r == 8'h1;
     end
   end
@@ -723,19 +711,17 @@ module UpDownLoadCounter_5(
 `endif // RANDOMIZE_REG_INIT
   reg [7:0] count_r; // @[UpDownLoadCounter.scala 20:24]
   reg  is_zero_r; // @[UpDownLoadCounter.scala 21:26]
-  wire  _count_r_T_1 = incr & ~decr; // @[UpDownLoadCounter.scala 28:15]
-  wire  _count_r_T_5 = ~incr & decr; // @[UpDownLoadCounter.scala 29:16]
-  wire [7:0] _count_r_T_11 = count_r + 8'h1; // @[UpDownLoadCounter.scala 32:51]
-  wire [7:0] _count_r_T_13 = count_r - 8'h1; // @[UpDownLoadCounter.scala 33:51]
-  wire  _is_zero_r_T_8 = incr ^ decr ? decr & count_r == 8'h1 | incr & count_r == 8'hff : is_zero_r; // @[UpDownLoadCounter.scala 42:23]
-  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 37:11]
+  wire [7:0] _count_r_T_1 = count_r + 8'h1; // @[UpDownLoadCounter.scala 29:51]
+  wire [7:0] _count_r_T_3 = count_r - 8'h1; // @[UpDownLoadCounter.scala 30:51]
+  wire  _is_zero_r_T_8 = incr ^ decr ? decr & count_r == 8'h1 | incr & count_r == 8'hff : is_zero_r; // @[UpDownLoadCounter.scala 39:23]
+  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 34:11]
   always @(posedge clock) begin
     if (reset) begin // @[UpDownLoadCounter.scala 20:24]
       count_r <= 8'h0; // @[UpDownLoadCounter.scala 20:24]
-    end else if (_count_r_T_1) begin // @[UpDownLoadCounter.scala 32:30]
-      count_r <= _count_r_T_11; // @[UpDownLoadCounter.scala 32:40]
-    end else if (_count_r_T_5) begin // @[UpDownLoadCounter.scala 33:30]
-      count_r <= _count_r_T_13; // @[UpDownLoadCounter.scala 33:40]
+    end else if (incr & ~decr) begin // @[UpDownLoadCounter.scala 29:30]
+      count_r <= _count_r_T_1; // @[UpDownLoadCounter.scala 29:40]
+    end else if (~incr & decr) begin // @[UpDownLoadCounter.scala 30:30]
+      count_r <= _count_r_T_3; // @[UpDownLoadCounter.scala 30:40]
     end
     is_zero_r <= reset | _is_zero_r_T_8; // @[UpDownLoadCounter.scala 21:{26,26}]
   end
@@ -870,6 +856,9 @@ module AxiWriteMaster(
   wire  wxfer = s_tvalid & m_axi_wready; // @[AxiWriteMaster.scala 47:24]
   wire  _wfirst_T = wxfer ? m_axi_wlast : wfirst; // @[AxiWriteMaster.scala 49:16]
   wire  _load_burst_cntr_T_2 = start & single_transaction; // @[AxiWriteMaster.scala 52:86]
+  wire  load_burst_cntr = wxfer & m_axi_wlast & w_almost_final_transaction | start & single_transaction & ctrl_length
+     != 32'h1; // @[AxiWriteMaster.scala 52:76]
+  wire [7:0] _burst_cntr_load_value_T_4 = final_burst_len - 8'h1; // @[AxiWriteMaster.scala 59:101]
   wire [23:0] w_transactions_to_go = w_transaction_cntr_count; // @[AxiWriteMaster.scala 19:34 69:24]
   wire  awxfer = awvalid_r & m_axi_awready; // @[AxiWriteMaster.scala 80:26]
   wire  idle_aw = w_to_aw_cntr_is_zero; // @[AxiWriteMaster.scala 23:21 96:11]
@@ -935,7 +924,8 @@ module AxiWriteMaster(
   assign burst_cntr_load = wxfer & m_axi_wlast & w_almost_final_transaction | start & single_transaction & ctrl_length
      != 32'h1; // @[AxiWriteMaster.scala 52:76]
   assign burst_cntr_decr = s_tvalid & m_axi_wready; // @[AxiWriteMaster.scala 47:24]
-  assign burst_cntr_load_value = final_burst_len; // @[AxiWriteMaster.scala 59:25]
+  assign burst_cntr_load_value = _load_burst_cntr_T_2 & load_burst_cntr & wxfer ? _burst_cntr_load_value_T_4 :
+    final_burst_len; // @[AxiWriteMaster.scala 59:31]
   assign w_transaction_cntr_clock = clock;
   assign w_transaction_cntr_reset = reset;
   assign w_transaction_cntr_load = start; // @[AxiWriteMaster.scala 65:27]

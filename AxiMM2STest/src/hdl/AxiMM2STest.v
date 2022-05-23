@@ -223,22 +223,17 @@ module UpDownLoadCounter(
 `endif // RANDOMIZE_REG_INIT
   reg [23:0] count_r; // @[UpDownLoadCounter.scala 20:24]
   reg  is_zero_r; // @[UpDownLoadCounter.scala 21:26]
-  wire [23:0] _count_r_T_7 = load_value - 24'h1; // @[UpDownLoadCounter.scala 29:39]
-  wire [23:0] _count_r_T_13 = count_r - 24'h1; // @[UpDownLoadCounter.scala 33:51]
-  wire  _is_zero_r_T_8 = decr ? decr & count_r == 24'h1 : is_zero_r; // @[UpDownLoadCounter.scala 42:23]
-  wire  _GEN_4 = load ? load_value == 24'h0 : _is_zero_r_T_8; // @[UpDownLoadCounter.scala 40:{17,29} 42:17]
-  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 37:11]
+  wire [23:0] _count_r_T_3 = count_r - 24'h1; // @[UpDownLoadCounter.scala 30:51]
+  wire  _is_zero_r_T_8 = decr ? decr & count_r == 24'h1 : is_zero_r; // @[UpDownLoadCounter.scala 39:23]
+  wire  _GEN_4 = load ? load_value == 24'h0 : _is_zero_r_T_8; // @[UpDownLoadCounter.scala 37:{17,29} 39:17]
+  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 34:11]
   always @(posedge clock) begin
     if (reset) begin // @[UpDownLoadCounter.scala 20:24]
       count_r <= 24'h0; // @[UpDownLoadCounter.scala 20:24]
     end else if (load) begin // @[UpDownLoadCounter.scala 26:17]
-      if (decr) begin // @[Mux.scala 101:16]
-        count_r <= _count_r_T_7;
-      end else begin
-        count_r <= load_value;
-      end
-    end else if (decr) begin // @[UpDownLoadCounter.scala 33:30]
-      count_r <= _count_r_T_13; // @[UpDownLoadCounter.scala 33:40]
+      count_r <= load_value; // @[UpDownLoadCounter.scala 27:15]
+    end else if (decr) begin // @[UpDownLoadCounter.scala 30:30]
+      count_r <= _count_r_T_3; // @[UpDownLoadCounter.scala 30:40]
     end
     is_zero_r <= reset | _GEN_4; // @[UpDownLoadCounter.scala 21:{26,26}]
   end
@@ -303,22 +298,20 @@ module UpDownLoadCounter_1(
 `endif // RANDOMIZE_REG_INIT
   reg [1:0] count_r; // @[UpDownLoadCounter.scala 20:24]
   reg  is_zero_r; // @[UpDownLoadCounter.scala 21:26]
-  wire  _count_r_T_1 = incr & ~decr; // @[UpDownLoadCounter.scala 28:15]
-  wire  _count_r_T_5 = ~incr & decr; // @[UpDownLoadCounter.scala 29:16]
-  wire [1:0] _count_r_T_11 = count_r + 2'h1; // @[UpDownLoadCounter.scala 32:51]
-  wire [1:0] _count_r_T_13 = count_r - 2'h1; // @[UpDownLoadCounter.scala 33:51]
-  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 37:11]
+  wire [1:0] _count_r_T_1 = count_r + 2'h1; // @[UpDownLoadCounter.scala 29:51]
+  wire [1:0] _count_r_T_3 = count_r - 2'h1; // @[UpDownLoadCounter.scala 30:51]
+  assign is_zero = is_zero_r; // @[UpDownLoadCounter.scala 34:11]
   always @(posedge clock) begin
     if (reset) begin // @[UpDownLoadCounter.scala 20:24]
       count_r <= 2'h3; // @[UpDownLoadCounter.scala 20:24]
-    end else if (_count_r_T_1) begin // @[UpDownLoadCounter.scala 32:30]
-      count_r <= _count_r_T_11; // @[UpDownLoadCounter.scala 32:40]
-    end else if (_count_r_T_5) begin // @[UpDownLoadCounter.scala 33:30]
-      count_r <= _count_r_T_13; // @[UpDownLoadCounter.scala 33:40]
+    end else if (incr & ~decr) begin // @[UpDownLoadCounter.scala 29:30]
+      count_r <= _count_r_T_1; // @[UpDownLoadCounter.scala 29:40]
+    end else if (~incr & decr) begin // @[UpDownLoadCounter.scala 30:30]
+      count_r <= _count_r_T_3; // @[UpDownLoadCounter.scala 30:40]
     end
     if (reset) begin // @[UpDownLoadCounter.scala 21:26]
       is_zero_r <= 1'h0; // @[UpDownLoadCounter.scala 21:26]
-    end else if (incr ^ decr) begin // @[UpDownLoadCounter.scala 42:23]
+    end else if (incr ^ decr) begin // @[UpDownLoadCounter.scala 39:23]
       is_zero_r <= decr & count_r == 2'h1 | incr & count_r == 2'h3;
     end
   end

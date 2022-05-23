@@ -26,7 +26,8 @@ module AxiMM2S2MMTest_tb();
 bit aclk=0;
 bit aresetn = 0;
 bit [31:0] addr_reg = 32'h4000_0000, addr_bram = 32'hC000_0000, addr_bram2 = 32'hD000_0000;
-bit [31:0] data_wr, data_rd;
+bit [31:0] data_wr, data_rd, data_ret;
+bit not_matched;
 int i,j;
 always #5ns aclk = ~aclk;
 
@@ -73,13 +74,24 @@ initial begin
         master_agent.AXI4LITE_READ_BURST(addr_reg+32'h004, 0, data_rd, resp);
     end
     
-    
-    for (i=0; i<256*j; i++) begin    
-        master_agent.AXI4LITE_READ_BURST(addr_bram2+ 32'h400*j+i, 0, data_rd, resp);
-        $display("data_rd = 0x%x", data_rd);
+    not_matched = 0;
+    for (i=0; i<256*j; i++) begin
+        data_ret[7:0] = i*4+1;
+        data_ret[15:8] = i*4+2;
+        data_ret[23:16] = i*4+3;
+        data_ret[31:24] = i*4+4;    
+        master_agent.AXI4LITE_READ_BURST(addr_bram2+ 32'h400*j+i*4, 0, data_rd, resp);
+        if (data_rd != data_ret) begin
+            $display("%d not matched : data_rd = 0x%x, data_ret = 0x%x", i, data_rd, data_ret);
+            not_matched = 1;
+        end
         
     end
-
+    
+    if (not_matched)
+        $display("Data do not match, test failed");
+    else
+        $display("Data match, test succeeded");
     
     for (i=0; i<5; i++)
     @(negedge aclk);
