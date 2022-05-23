@@ -20,3 +20,7 @@
 ## AxiS2MMTest
 ![design_1](AxiS2MMTest/design_1.png)
 ![axi s2mm](AxiS2MMTest/axi_s2mm.png)
+
+## AxiMM2S2MMTest
+![design_1](AxiMM2S2MMTest/design_1.png)
+![axi mm2s2mm](AxiMM2S2MMTest/axi_mm2s2mm.png)
