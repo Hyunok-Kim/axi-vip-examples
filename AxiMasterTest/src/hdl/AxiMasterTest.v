@@ -1064,73 +1064,73 @@ module AxiMasterTest(
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_LITE BREADY" *)
   input         s_axi_bready,
+  output        wr_done,
+  output        rd_done,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARADDR" *)
+  output [31:0] m_axi_araddr,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARVALID" *)
+  output        m_axi_arvalid,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARREADY" *)
+  input         m_axi_arready,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RDATA" *)
+  input  [31:0] m_axi_rdata,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RRESP" *)
+  input  [1:0]  m_axi_rresp,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RVALID" *)
+  input         m_axi_rvalid,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RREADY" *)
+  output        m_axi_rready,
 
   (*
     X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWADDR", X_INTERFACE_PARAMETER = "CLK_DOMAIN clock, ID_WIDTH 0, PROTOCOL AXI4, DATA_WIDTH 32"
      *)
-  output [31:0] m_axi_wr_awaddr,
+  output [31:0] m_axi_awaddr,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWVALID" *)
-  output        m_axi_wr_awvalid,
+  output        m_axi_awvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWREADY" *)
-  input         m_axi_wr_awready,
+  input         m_axi_awready,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WDATA" *)
-  output [31:0] m_axi_wr_wdata,
+  output [31:0] m_axi_wdata,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WVALID" *)
-  output        m_axi_wr_wvalid,
+  output        m_axi_wvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WREADY" *)
-  input         m_axi_wr_wready,
+  input         m_axi_wready,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BRESP" *)
-  input  [1:0]  m_axi_wr_bresp,
+  input  [1:0]  m_axi_bresp,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BVALID" *)
-  input         m_axi_wr_bvalid,
+  input         m_axi_bvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BREADY" *)
-  output        m_axi_wr_bready,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWLEN" *)
-  output [7:0]  m_axi_wr_awlen,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WSTRB" *)
-  output [3:0]  m_axi_wr_wstrb,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WLAST" *)
-  output        m_axi_wr_wlast,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARADDR" *)
-  output [31:0] m_axi_rd_araddr,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARVALID" *)
-  output        m_axi_rd_arvalid,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARREADY" *)
-  input         m_axi_rd_arready,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RDATA" *)
-  input  [31:0] m_axi_rd_rdata,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RRESP" *)
-  input  [1:0]  m_axi_rd_rresp,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RVALID" *)
-  input         m_axi_rd_rvalid,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RREADY" *)
-  output        m_axi_rd_rready,
+  output        m_axi_bready,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARLEN" *)
-  output [7:0]  m_axi_rd_arlen,
+  output [7:0]  m_axi_arlen,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RLAST" *)
-  input         m_axi_rd_rlast,
-  output        wr_done,
-  output        rd_done
+  input         m_axi_rlast,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWLEN" *)
+  output [7:0]  m_axi_awlen,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WSTRB" *)
+  output [3:0]  m_axi_wstrb,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WLAST" *)
+  output        m_axi_wlast
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -1144,92 +1144,92 @@ module AxiMasterTest(
   reg [31:0] _RAND_8;
   reg [31:0] _RAND_9;
 `endif // RANDOMIZE_REG_INIT
-  wire  axi_ctrl_clock; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_reset; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_s_axi_araddr; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_arvalid; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_arready; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_s_axi_rdata; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_rvalid; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_rready; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_s_axi_awaddr; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_awvalid; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_awready; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_s_axi_wdata; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_wvalid; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_wready; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_bvalid; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_s_axi_bready; // @[AxiMasterTest.scala 17:24]
-  wire [11:0] axi_ctrl_start; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_done_0; // @[AxiMasterTest.scala 17:24]
-  wire  axi_ctrl_done_1; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_write_addr; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_read_addr; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_write_data_0; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_write_data_1; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_write_data_2; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_write_data_3; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_read_data_0; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_read_data_1; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_read_data_2; // @[AxiMasterTest.scala 17:24]
-  wire [31:0] axi_ctrl_read_data_3; // @[AxiMasterTest.scala 17:24]
-  wire  write_master_clock; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_reset; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_ctrl_start; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_ctrl_done; // @[AxiMasterTest.scala 22:28]
-  wire [31:0] write_master_ctrl_offset; // @[AxiMasterTest.scala 22:28]
-  wire [31:0] write_master_m_axi_awaddr; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_m_axi_awvalid; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_m_axi_awready; // @[AxiMasterTest.scala 22:28]
-  wire [31:0] write_master_m_axi_wdata; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_m_axi_wvalid; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_m_axi_wready; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_m_axi_bvalid; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_m_axi_bready; // @[AxiMasterTest.scala 22:28]
-  wire [7:0] write_master_m_axi_awlen; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_m_axi_wlast; // @[AxiMasterTest.scala 22:28]
-  wire [31:0] write_master_s_tdata; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_s_tvalid; // @[AxiMasterTest.scala 22:28]
-  wire  write_master_s_tready; // @[AxiMasterTest.scala 22:28]
-  wire  read_master_clock; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_reset; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_ctrl_start; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_ctrl_done; // @[AxiMasterTest.scala 59:27]
-  wire [31:0] read_master_ctrl_offset; // @[AxiMasterTest.scala 59:27]
-  wire [31:0] read_master_m_axi_araddr; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_m_axi_arvalid; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_m_axi_arready; // @[AxiMasterTest.scala 59:27]
-  wire [31:0] read_master_m_axi_rdata; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_m_axi_rvalid; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_m_axi_rready; // @[AxiMasterTest.scala 59:27]
-  wire [7:0] read_master_m_axi_arlen; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_m_axi_rlast; // @[AxiMasterTest.scala 59:27]
-  wire [31:0] read_master_m_tdata; // @[AxiMasterTest.scala 59:27]
-  wire  read_master_m_tvalid; // @[AxiMasterTest.scala 59:27]
-  reg  done_0; // @[AxiMasterTest.scala 15:21]
-  reg  done_1; // @[AxiMasterTest.scala 15:21]
-  reg [31:0] read_data_0; // @[AxiMasterTest.scala 16:26]
-  reg [31:0] read_data_1; // @[AxiMasterTest.scala 16:26]
-  reg [31:0] read_data_2; // @[AxiMasterTest.scala 16:26]
-  reg [31:0] read_data_3; // @[AxiMasterTest.scala 16:26]
-  reg [1:0] wr_state; // @[AxiMasterTest.scala 26:25]
-  reg [1:0] wr_cnt; // @[AxiMasterTest.scala 27:23]
-  wire [1:0] _wr_cnt_T_1 = wr_cnt + 2'h1; // @[AxiMasterTest.scala 39:26]
-  wire [1:0] _GEN_3 = wr_cnt == 2'h3 ? 2'h2 : wr_state; // @[AxiMasterTest.scala 26:25 40:{31,42}]
-  wire  _GEN_6 = write_master_ctrl_done; // @[AxiMasterTest.scala 12:11 44:37 45:17]
-  wire  _GEN_7 = write_master_ctrl_done | done_0; // @[AxiMasterTest.scala 44:37 46:17 15:21]
-  wire [1:0] _GEN_8 = write_master_ctrl_done ? 2'h0 : wr_state; // @[AxiMasterTest.scala 44:37 47:18 26:25]
-  wire  _GEN_14 = 2'h1 == wr_state ? 1'h0 : 2'h2 == wr_state & _GEN_6; // @[AxiMasterTest.scala 12:11 29:21]
-  wire [31:0] _GEN_20 = axi_ctrl_write_data_0; // @[AxiMasterTest.scala 55:{24,24}]
-  wire [31:0] _GEN_21 = 2'h1 == wr_cnt ? axi_ctrl_write_data_1 : _GEN_20; // @[AxiMasterTest.scala 55:{24,24}]
-  wire [31:0] _GEN_22 = 2'h2 == wr_cnt ? axi_ctrl_write_data_2 : _GEN_21; // @[AxiMasterTest.scala 55:{24,24}]
-  reg [1:0] rd_state; // @[AxiMasterTest.scala 63:25]
-  reg [1:0] rd_cnt; // @[AxiMasterTest.scala 64:23]
-  wire [1:0] _rd_cnt_T_1 = rd_cnt + 2'h1; // @[AxiMasterTest.scala 76:26]
-  wire [31:0] _read_data_rd_cnt = read_master_m_tdata; // @[AxiMasterTest.scala 78:{25,25}]
-  wire  _GEN_34 = 2'h2 == rd_state | done_1; // @[AxiMasterTest.scala 66:21 83:17 15:21]
-  wire  _GEN_42 = 2'h1 == rd_state ? 1'h0 : 2'h2 == rd_state; // @[AxiMasterTest.scala 13:11 66:21]
-  AxiControlSlave axi_ctrl ( // @[AxiMasterTest.scala 17:24]
+  wire  axi_ctrl_clock; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_reset; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_s_axi_araddr; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_arvalid; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_arready; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_s_axi_rdata; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_rvalid; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_rready; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_s_axi_awaddr; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_awvalid; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_awready; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_s_axi_wdata; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_wvalid; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_wready; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_bvalid; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_s_axi_bready; // @[AxiMasterTest.scala 15:24]
+  wire [11:0] axi_ctrl_start; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_done_0; // @[AxiMasterTest.scala 15:24]
+  wire  axi_ctrl_done_1; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_write_addr; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_read_addr; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_write_data_0; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_write_data_1; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_write_data_2; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_write_data_3; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_read_data_0; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_read_data_1; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_read_data_2; // @[AxiMasterTest.scala 15:24]
+  wire [31:0] axi_ctrl_read_data_3; // @[AxiMasterTest.scala 15:24]
+  wire  write_master_clock; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_reset; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_ctrl_start; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_ctrl_done; // @[AxiMasterTest.scala 20:28]
+  wire [31:0] write_master_ctrl_offset; // @[AxiMasterTest.scala 20:28]
+  wire [31:0] write_master_m_axi_awaddr; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_m_axi_awvalid; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_m_axi_awready; // @[AxiMasterTest.scala 20:28]
+  wire [31:0] write_master_m_axi_wdata; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_m_axi_wvalid; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_m_axi_wready; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_m_axi_bvalid; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_m_axi_bready; // @[AxiMasterTest.scala 20:28]
+  wire [7:0] write_master_m_axi_awlen; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_m_axi_wlast; // @[AxiMasterTest.scala 20:28]
+  wire [31:0] write_master_s_tdata; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_s_tvalid; // @[AxiMasterTest.scala 20:28]
+  wire  write_master_s_tready; // @[AxiMasterTest.scala 20:28]
+  wire  read_master_clock; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_reset; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_ctrl_start; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_ctrl_done; // @[AxiMasterTest.scala 56:27]
+  wire [31:0] read_master_ctrl_offset; // @[AxiMasterTest.scala 56:27]
+  wire [31:0] read_master_m_axi_araddr; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_m_axi_arvalid; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_m_axi_arready; // @[AxiMasterTest.scala 56:27]
+  wire [31:0] read_master_m_axi_rdata; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_m_axi_rvalid; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_m_axi_rready; // @[AxiMasterTest.scala 56:27]
+  wire [7:0] read_master_m_axi_arlen; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_m_axi_rlast; // @[AxiMasterTest.scala 56:27]
+  wire [31:0] read_master_m_tdata; // @[AxiMasterTest.scala 56:27]
+  wire  read_master_m_tvalid; // @[AxiMasterTest.scala 56:27]
+  reg  done_0; // @[AxiMasterTest.scala 13:21]
+  reg  done_1; // @[AxiMasterTest.scala 13:21]
+  reg [31:0] read_data_0; // @[AxiMasterTest.scala 14:26]
+  reg [31:0] read_data_1; // @[AxiMasterTest.scala 14:26]
+  reg [31:0] read_data_2; // @[AxiMasterTest.scala 14:26]
+  reg [31:0] read_data_3; // @[AxiMasterTest.scala 14:26]
+  reg [1:0] wr_state; // @[AxiMasterTest.scala 23:25]
+  reg [1:0] wr_cnt; // @[AxiMasterTest.scala 24:23]
+  wire [1:0] _wr_cnt_T_1 = wr_cnt + 2'h1; // @[AxiMasterTest.scala 36:26]
+  wire [1:0] _GEN_3 = wr_cnt == 2'h3 ? 2'h2 : wr_state; // @[AxiMasterTest.scala 23:25 37:{31,42}]
+  wire  _GEN_6 = write_master_ctrl_done; // @[AxiMasterTest.scala 10:11 41:37 42:17]
+  wire  _GEN_7 = write_master_ctrl_done | done_0; // @[AxiMasterTest.scala 41:37 43:17 13:21]
+  wire [1:0] _GEN_8 = write_master_ctrl_done ? 2'h0 : wr_state; // @[AxiMasterTest.scala 41:37 44:18 23:25]
+  wire  _GEN_14 = 2'h1 == wr_state ? 1'h0 : 2'h2 == wr_state & _GEN_6; // @[AxiMasterTest.scala 10:11 26:21]
+  wire [31:0] _GEN_20 = axi_ctrl_write_data_0; // @[AxiMasterTest.scala 52:{24,24}]
+  wire [31:0] _GEN_21 = 2'h1 == wr_cnt ? axi_ctrl_write_data_1 : _GEN_20; // @[AxiMasterTest.scala 52:{24,24}]
+  wire [31:0] _GEN_22 = 2'h2 == wr_cnt ? axi_ctrl_write_data_2 : _GEN_21; // @[AxiMasterTest.scala 52:{24,24}]
+  reg [1:0] rd_state; // @[AxiMasterTest.scala 59:25]
+  reg [1:0] rd_cnt; // @[AxiMasterTest.scala 60:23]
+  wire [1:0] _rd_cnt_T_1 = rd_cnt + 2'h1; // @[AxiMasterTest.scala 72:26]
+  wire [31:0] _read_data_rd_cnt = read_master_m_tdata; // @[AxiMasterTest.scala 74:{25,25}]
+  wire  _GEN_34 = 2'h2 == rd_state | done_1; // @[AxiMasterTest.scala 62:21 79:17 13:21]
+  wire  _GEN_42 = 2'h1 == rd_state ? 1'h0 : 2'h2 == rd_state; // @[AxiMasterTest.scala 11:11 62:21]
+  AxiControlSlave axi_ctrl ( // @[AxiMasterTest.scala 15:24]
     .clock(axi_ctrl_clock),
     .reset(axi_ctrl_reset),
     .s_axi_araddr(axi_ctrl_s_axi_araddr),
@@ -1260,7 +1260,7 @@ module AxiMasterTest(
     .read_data_2(axi_ctrl_read_data_2),
     .read_data_3(axi_ctrl_read_data_3)
   );
-  AxiWriteMaster write_master ( // @[AxiMasterTest.scala 22:28]
+  AxiWriteMaster write_master ( // @[AxiMasterTest.scala 20:28]
     .clock(write_master_clock),
     .reset(write_master_reset),
     .ctrl_start(write_master_ctrl_start),
@@ -1280,7 +1280,7 @@ module AxiMasterTest(
     .s_tvalid(write_master_s_tvalid),
     .s_tready(write_master_s_tready)
   );
-  AxiReadMaster read_master ( // @[AxiMasterTest.scala 59:27]
+  AxiReadMaster read_master ( // @[AxiMasterTest.scala 56:27]
     .clock(read_master_clock),
     .reset(read_master_reset),
     .ctrl_start(read_master_ctrl_start),
@@ -1297,164 +1297,164 @@ module AxiMasterTest(
     .m_tdata(read_master_m_tdata),
     .m_tvalid(read_master_m_tvalid)
   );
-  assign s_axi_arready = axi_ctrl_s_axi_arready; // @[AxiMasterTest.scala 18:18]
-  assign s_axi_rdata = axi_ctrl_s_axi_rdata; // @[AxiMasterTest.scala 18:18]
-  assign s_axi_rresp = 2'h0; // @[AxiMasterTest.scala 18:18]
-  assign s_axi_rvalid = axi_ctrl_s_axi_rvalid; // @[AxiMasterTest.scala 18:18]
-  assign s_axi_awready = axi_ctrl_s_axi_awready; // @[AxiMasterTest.scala 18:18]
-  assign s_axi_wready = axi_ctrl_s_axi_wready; // @[AxiMasterTest.scala 18:18]
-  assign s_axi_bresp = 2'h0; // @[AxiMasterTest.scala 18:18]
-  assign s_axi_bvalid = axi_ctrl_s_axi_bvalid; // @[AxiMasterTest.scala 18:18]
-  assign m_axi_wr_awaddr = write_master_m_axi_awaddr; // @[AxiMasterTest.scala 23:22]
-  assign m_axi_wr_awvalid = write_master_m_axi_awvalid; // @[AxiMasterTest.scala 23:22]
-  assign m_axi_wr_wdata = write_master_m_axi_wdata; // @[AxiMasterTest.scala 23:22]
-  assign m_axi_wr_wvalid = write_master_m_axi_wvalid; // @[AxiMasterTest.scala 23:22]
-  assign m_axi_wr_bready = 1'h1; // @[AxiMasterTest.scala 23:22]
-  assign m_axi_wr_awlen = write_master_m_axi_awlen; // @[AxiMasterTest.scala 23:22]
-  assign m_axi_wr_wstrb = 4'hf; // @[AxiMasterTest.scala 23:22]
-  assign m_axi_wr_wlast = write_master_m_axi_wlast; // @[AxiMasterTest.scala 23:22]
-  assign m_axi_rd_araddr = read_master_m_axi_araddr; // @[AxiMasterTest.scala 60:21]
-  assign m_axi_rd_arvalid = read_master_m_axi_arvalid; // @[AxiMasterTest.scala 60:21]
-  assign m_axi_rd_rready = 1'h1; // @[AxiMasterTest.scala 60:21]
-  assign m_axi_rd_arlen = read_master_m_axi_arlen; // @[AxiMasterTest.scala 60:21]
-  assign wr_done = 2'h0 == wr_state ? 1'h0 : _GEN_14; // @[AxiMasterTest.scala 12:11 29:21]
-  assign rd_done = 2'h0 == rd_state ? 1'h0 : _GEN_42; // @[AxiMasterTest.scala 13:11 66:21]
+  assign s_axi_arready = axi_ctrl_s_axi_arready; // @[AxiMasterTest.scala 16:18]
+  assign s_axi_rdata = axi_ctrl_s_axi_rdata; // @[AxiMasterTest.scala 16:18]
+  assign s_axi_rresp = 2'h0; // @[AxiMasterTest.scala 16:18]
+  assign s_axi_rvalid = axi_ctrl_s_axi_rvalid; // @[AxiMasterTest.scala 16:18]
+  assign s_axi_awready = axi_ctrl_s_axi_awready; // @[AxiMasterTest.scala 16:18]
+  assign s_axi_wready = axi_ctrl_s_axi_wready; // @[AxiMasterTest.scala 16:18]
+  assign s_axi_bresp = 2'h0; // @[AxiMasterTest.scala 16:18]
+  assign s_axi_bvalid = axi_ctrl_s_axi_bvalid; // @[AxiMasterTest.scala 16:18]
+  assign wr_done = 2'h0 == wr_state ? 1'h0 : _GEN_14; // @[AxiMasterTest.scala 10:11 26:21]
+  assign rd_done = 2'h0 == rd_state ? 1'h0 : _GEN_42; // @[AxiMasterTest.scala 11:11 62:21]
+  assign m_axi_araddr = read_master_m_axi_araddr; // @[AxiIO.scala 49:15]
+  assign m_axi_arvalid = read_master_m_axi_arvalid; // @[AxiIO.scala 51:16]
+  assign m_axi_rready = 1'h1; // @[AxiIO.scala 57:15]
+  assign m_axi_awaddr = write_master_m_axi_awaddr; // @[AxiIO.scala 58:15]
+  assign m_axi_awvalid = write_master_m_axi_awvalid; // @[AxiIO.scala 60:16]
+  assign m_axi_wdata = write_master_m_axi_wdata; // @[AxiIO.scala 62:14]
+  assign m_axi_wvalid = write_master_m_axi_wvalid; // @[AxiIO.scala 65:15]
+  assign m_axi_bready = 1'h1; // @[AxiIO.scala 69:15]
+  assign m_axi_arlen = read_master_m_axi_arlen; // @[AxiIO.scala 50:14]
+  assign m_axi_awlen = write_master_m_axi_awlen; // @[AxiIO.scala 59:14]
+  assign m_axi_wstrb = 4'hf; // @[AxiIO.scala 63:14]
+  assign m_axi_wlast = write_master_m_axi_wlast; // @[AxiIO.scala 64:14]
   assign axi_ctrl_clock = clock;
   assign axi_ctrl_reset = reset;
-  assign axi_ctrl_s_axi_araddr = s_axi_araddr; // @[AxiMasterTest.scala 18:18]
-  assign axi_ctrl_s_axi_arvalid = s_axi_arvalid; // @[AxiMasterTest.scala 18:18]
-  assign axi_ctrl_s_axi_rready = s_axi_rready; // @[AxiMasterTest.scala 18:18]
-  assign axi_ctrl_s_axi_awaddr = s_axi_awaddr; // @[AxiMasterTest.scala 18:18]
-  assign axi_ctrl_s_axi_awvalid = s_axi_awvalid; // @[AxiMasterTest.scala 18:18]
-  assign axi_ctrl_s_axi_wdata = s_axi_wdata; // @[AxiMasterTest.scala 18:18]
-  assign axi_ctrl_s_axi_wvalid = s_axi_wvalid; // @[AxiMasterTest.scala 18:18]
-  assign axi_ctrl_s_axi_bready = s_axi_bready; // @[AxiMasterTest.scala 18:18]
-  assign axi_ctrl_done_0 = done_0; // @[AxiMasterTest.scala 19:17]
-  assign axi_ctrl_done_1 = done_1; // @[AxiMasterTest.scala 19:17]
-  assign axi_ctrl_read_data_0 = read_data_0; // @[AxiMasterTest.scala 20:22]
-  assign axi_ctrl_read_data_1 = read_data_1; // @[AxiMasterTest.scala 20:22]
-  assign axi_ctrl_read_data_2 = read_data_2; // @[AxiMasterTest.scala 20:22]
-  assign axi_ctrl_read_data_3 = read_data_3; // @[AxiMasterTest.scala 20:22]
+  assign axi_ctrl_s_axi_araddr = s_axi_araddr; // @[AxiMasterTest.scala 16:18]
+  assign axi_ctrl_s_axi_arvalid = s_axi_arvalid; // @[AxiMasterTest.scala 16:18]
+  assign axi_ctrl_s_axi_rready = s_axi_rready; // @[AxiMasterTest.scala 16:18]
+  assign axi_ctrl_s_axi_awaddr = s_axi_awaddr; // @[AxiMasterTest.scala 16:18]
+  assign axi_ctrl_s_axi_awvalid = s_axi_awvalid; // @[AxiMasterTest.scala 16:18]
+  assign axi_ctrl_s_axi_wdata = s_axi_wdata; // @[AxiMasterTest.scala 16:18]
+  assign axi_ctrl_s_axi_wvalid = s_axi_wvalid; // @[AxiMasterTest.scala 16:18]
+  assign axi_ctrl_s_axi_bready = s_axi_bready; // @[AxiMasterTest.scala 16:18]
+  assign axi_ctrl_done_0 = done_0; // @[AxiMasterTest.scala 17:17]
+  assign axi_ctrl_done_1 = done_1; // @[AxiMasterTest.scala 17:17]
+  assign axi_ctrl_read_data_0 = read_data_0; // @[AxiMasterTest.scala 18:22]
+  assign axi_ctrl_read_data_1 = read_data_1; // @[AxiMasterTest.scala 18:22]
+  assign axi_ctrl_read_data_2 = read_data_2; // @[AxiMasterTest.scala 18:22]
+  assign axi_ctrl_read_data_3 = read_data_3; // @[AxiMasterTest.scala 18:22]
   assign write_master_clock = clock;
   assign write_master_reset = reset;
-  assign write_master_ctrl_start = axi_ctrl_start[0]; // @[AxiMasterTest.scala 52:44]
-  assign write_master_ctrl_offset = axi_ctrl_write_addr; // @[AxiMasterTest.scala 53:28]
-  assign write_master_m_axi_awready = m_axi_wr_awready; // @[AxiMasterTest.scala 23:22]
-  assign write_master_m_axi_wready = m_axi_wr_wready; // @[AxiMasterTest.scala 23:22]
-  assign write_master_m_axi_bvalid = m_axi_wr_bvalid; // @[AxiMasterTest.scala 23:22]
-  assign write_master_s_tdata = 2'h3 == wr_cnt ? axi_ctrl_write_data_3 : _GEN_22; // @[AxiMasterTest.scala 55:{24,24}]
-  assign write_master_s_tvalid = wr_state == 2'h1; // @[AxiMasterTest.scala 57:41]
+  assign write_master_ctrl_start = axi_ctrl_start[0]; // @[AxiMasterTest.scala 49:44]
+  assign write_master_ctrl_offset = axi_ctrl_write_addr; // @[AxiMasterTest.scala 50:28]
+  assign write_master_m_axi_awready = m_axi_awready; // @[AxiIO.scala 61:21]
+  assign write_master_m_axi_wready = m_axi_wready; // @[AxiIO.scala 66:20]
+  assign write_master_m_axi_bvalid = m_axi_bvalid; // @[AxiIO.scala 68:20]
+  assign write_master_s_tdata = 2'h3 == wr_cnt ? axi_ctrl_write_data_3 : _GEN_22; // @[AxiMasterTest.scala 52:{24,24}]
+  assign write_master_s_tvalid = wr_state == 2'h1; // @[AxiMasterTest.scala 54:41]
   assign read_master_clock = clock;
   assign read_master_reset = reset;
-  assign read_master_ctrl_start = axi_ctrl_start[1]; // @[AxiMasterTest.scala 88:43]
-  assign read_master_ctrl_offset = axi_ctrl_read_addr; // @[AxiMasterTest.scala 89:27]
-  assign read_master_m_axi_arready = m_axi_rd_arready; // @[AxiMasterTest.scala 60:21]
-  assign read_master_m_axi_rdata = m_axi_rd_rdata; // @[AxiMasterTest.scala 60:21]
-  assign read_master_m_axi_rvalid = m_axi_rd_rvalid; // @[AxiMasterTest.scala 60:21]
-  assign read_master_m_axi_rlast = m_axi_rd_rlast; // @[AxiMasterTest.scala 60:21]
+  assign read_master_ctrl_start = axi_ctrl_start[1]; // @[AxiMasterTest.scala 84:43]
+  assign read_master_ctrl_offset = axi_ctrl_read_addr; // @[AxiMasterTest.scala 85:27]
+  assign read_master_m_axi_arready = m_axi_arready; // @[AxiIO.scala 52:20]
+  assign read_master_m_axi_rdata = m_axi_rdata; // @[AxiIO.scala 53:18]
+  assign read_master_m_axi_rvalid = m_axi_rvalid; // @[AxiIO.scala 56:19]
+  assign read_master_m_axi_rlast = m_axi_rlast; // @[AxiIO.scala 54:18]
   always @(posedge clock) begin
-    if (reset) begin // @[AxiMasterTest.scala 15:21]
-      done_0 <= 1'h0; // @[AxiMasterTest.scala 15:21]
-    end else if (2'h0 == wr_state) begin // @[AxiMasterTest.scala 29:21]
-      if (axi_ctrl_start[0]) begin // @[AxiMasterTest.scala 31:32]
-        done_0 <= 1'h0; // @[AxiMasterTest.scala 34:17]
+    if (reset) begin // @[AxiMasterTest.scala 13:21]
+      done_0 <= 1'h0; // @[AxiMasterTest.scala 13:21]
+    end else if (2'h0 == wr_state) begin // @[AxiMasterTest.scala 26:21]
+      if (axi_ctrl_start[0]) begin // @[AxiMasterTest.scala 28:32]
+        done_0 <= 1'h0; // @[AxiMasterTest.scala 31:17]
       end
-    end else if (!(2'h1 == wr_state)) begin // @[AxiMasterTest.scala 29:21]
-      if (2'h2 == wr_state) begin // @[AxiMasterTest.scala 29:21]
+    end else if (!(2'h1 == wr_state)) begin // @[AxiMasterTest.scala 26:21]
+      if (2'h2 == wr_state) begin // @[AxiMasterTest.scala 26:21]
         done_0 <= _GEN_7;
       end
     end
-    if (reset) begin // @[AxiMasterTest.scala 15:21]
-      done_1 <= 1'h0; // @[AxiMasterTest.scala 15:21]
-    end else if (2'h0 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-      if (axi_ctrl_start[1]) begin // @[AxiMasterTest.scala 68:32]
-        done_1 <= 1'h0; // @[AxiMasterTest.scala 71:17]
+    if (reset) begin // @[AxiMasterTest.scala 13:21]
+      done_1 <= 1'h0; // @[AxiMasterTest.scala 13:21]
+    end else if (2'h0 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+      if (axi_ctrl_start[1]) begin // @[AxiMasterTest.scala 64:32]
+        done_1 <= 1'h0; // @[AxiMasterTest.scala 67:17]
       end
-    end else if (!(2'h1 == rd_state)) begin // @[AxiMasterTest.scala 66:21]
+    end else if (!(2'h1 == rd_state)) begin // @[AxiMasterTest.scala 62:21]
       done_1 <= _GEN_34;
     end
-    if (reset) begin // @[AxiMasterTest.scala 16:26]
-      read_data_0 <= 32'h0; // @[AxiMasterTest.scala 16:26]
-    end else if (!(2'h0 == rd_state)) begin // @[AxiMasterTest.scala 66:21]
-      if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-        if (2'h0 == rd_cnt) begin // @[AxiMasterTest.scala 78:25]
-          read_data_0 <= _read_data_rd_cnt; // @[AxiMasterTest.scala 78:25]
+    if (reset) begin // @[AxiMasterTest.scala 14:26]
+      read_data_0 <= 32'h0; // @[AxiMasterTest.scala 14:26]
+    end else if (!(2'h0 == rd_state)) begin // @[AxiMasterTest.scala 62:21]
+      if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+        if (2'h0 == rd_cnt) begin // @[AxiMasterTest.scala 74:25]
+          read_data_0 <= _read_data_rd_cnt; // @[AxiMasterTest.scala 74:25]
         end
       end
     end
-    if (reset) begin // @[AxiMasterTest.scala 16:26]
-      read_data_1 <= 32'h0; // @[AxiMasterTest.scala 16:26]
-    end else if (!(2'h0 == rd_state)) begin // @[AxiMasterTest.scala 66:21]
-      if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-        if (2'h1 == rd_cnt) begin // @[AxiMasterTest.scala 78:25]
-          read_data_1 <= _read_data_rd_cnt; // @[AxiMasterTest.scala 78:25]
+    if (reset) begin // @[AxiMasterTest.scala 14:26]
+      read_data_1 <= 32'h0; // @[AxiMasterTest.scala 14:26]
+    end else if (!(2'h0 == rd_state)) begin // @[AxiMasterTest.scala 62:21]
+      if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+        if (2'h1 == rd_cnt) begin // @[AxiMasterTest.scala 74:25]
+          read_data_1 <= _read_data_rd_cnt; // @[AxiMasterTest.scala 74:25]
         end
       end
     end
-    if (reset) begin // @[AxiMasterTest.scala 16:26]
-      read_data_2 <= 32'h0; // @[AxiMasterTest.scala 16:26]
-    end else if (!(2'h0 == rd_state)) begin // @[AxiMasterTest.scala 66:21]
-      if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-        if (2'h2 == rd_cnt) begin // @[AxiMasterTest.scala 78:25]
-          read_data_2 <= _read_data_rd_cnt; // @[AxiMasterTest.scala 78:25]
+    if (reset) begin // @[AxiMasterTest.scala 14:26]
+      read_data_2 <= 32'h0; // @[AxiMasterTest.scala 14:26]
+    end else if (!(2'h0 == rd_state)) begin // @[AxiMasterTest.scala 62:21]
+      if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+        if (2'h2 == rd_cnt) begin // @[AxiMasterTest.scala 74:25]
+          read_data_2 <= _read_data_rd_cnt; // @[AxiMasterTest.scala 74:25]
         end
       end
     end
-    if (reset) begin // @[AxiMasterTest.scala 16:26]
-      read_data_3 <= 32'h0; // @[AxiMasterTest.scala 16:26]
-    end else if (!(2'h0 == rd_state)) begin // @[AxiMasterTest.scala 66:21]
-      if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-        if (2'h3 == rd_cnt) begin // @[AxiMasterTest.scala 78:25]
-          read_data_3 <= _read_data_rd_cnt; // @[AxiMasterTest.scala 78:25]
+    if (reset) begin // @[AxiMasterTest.scala 14:26]
+      read_data_3 <= 32'h0; // @[AxiMasterTest.scala 14:26]
+    end else if (!(2'h0 == rd_state)) begin // @[AxiMasterTest.scala 62:21]
+      if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+        if (2'h3 == rd_cnt) begin // @[AxiMasterTest.scala 74:25]
+          read_data_3 <= _read_data_rd_cnt; // @[AxiMasterTest.scala 74:25]
         end
       end
     end
-    if (reset) begin // @[AxiMasterTest.scala 26:25]
-      wr_state <= 2'h0; // @[AxiMasterTest.scala 26:25]
-    end else if (2'h0 == wr_state) begin // @[AxiMasterTest.scala 29:21]
-      if (axi_ctrl_start[0]) begin // @[AxiMasterTest.scala 31:32]
-        wr_state <= 2'h1; // @[AxiMasterTest.scala 33:18]
+    if (reset) begin // @[AxiMasterTest.scala 23:25]
+      wr_state <= 2'h0; // @[AxiMasterTest.scala 23:25]
+    end else if (2'h0 == wr_state) begin // @[AxiMasterTest.scala 26:21]
+      if (axi_ctrl_start[0]) begin // @[AxiMasterTest.scala 28:32]
+        wr_state <= 2'h1; // @[AxiMasterTest.scala 30:18]
       end
-    end else if (2'h1 == wr_state) begin // @[AxiMasterTest.scala 29:21]
-      if (write_master_s_tready) begin // @[AxiMasterTest.scala 38:36]
+    end else if (2'h1 == wr_state) begin // @[AxiMasterTest.scala 26:21]
+      if (write_master_s_tready) begin // @[AxiMasterTest.scala 35:36]
         wr_state <= _GEN_3;
       end
-    end else if (2'h2 == wr_state) begin // @[AxiMasterTest.scala 29:21]
+    end else if (2'h2 == wr_state) begin // @[AxiMasterTest.scala 26:21]
       wr_state <= _GEN_8;
     end
-    if (reset) begin // @[AxiMasterTest.scala 27:23]
-      wr_cnt <= 2'h0; // @[AxiMasterTest.scala 27:23]
-    end else if (2'h0 == wr_state) begin // @[AxiMasterTest.scala 29:21]
-      if (axi_ctrl_start[0]) begin // @[AxiMasterTest.scala 31:32]
-        wr_cnt <= 2'h0; // @[AxiMasterTest.scala 32:16]
+    if (reset) begin // @[AxiMasterTest.scala 24:23]
+      wr_cnt <= 2'h0; // @[AxiMasterTest.scala 24:23]
+    end else if (2'h0 == wr_state) begin // @[AxiMasterTest.scala 26:21]
+      if (axi_ctrl_start[0]) begin // @[AxiMasterTest.scala 28:32]
+        wr_cnt <= 2'h0; // @[AxiMasterTest.scala 29:16]
       end
-    end else if (2'h1 == wr_state) begin // @[AxiMasterTest.scala 29:21]
-      if (write_master_s_tready) begin // @[AxiMasterTest.scala 38:36]
-        wr_cnt <= _wr_cnt_T_1; // @[AxiMasterTest.scala 39:16]
+    end else if (2'h1 == wr_state) begin // @[AxiMasterTest.scala 26:21]
+      if (write_master_s_tready) begin // @[AxiMasterTest.scala 35:36]
+        wr_cnt <= _wr_cnt_T_1; // @[AxiMasterTest.scala 36:16]
       end
     end
-    if (reset) begin // @[AxiMasterTest.scala 63:25]
-      rd_state <= 2'h0; // @[AxiMasterTest.scala 63:25]
-    end else if (2'h0 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-      if (axi_ctrl_start[1]) begin // @[AxiMasterTest.scala 68:32]
-        rd_state <= 2'h1; // @[AxiMasterTest.scala 70:18]
+    if (reset) begin // @[AxiMasterTest.scala 59:25]
+      rd_state <= 2'h0; // @[AxiMasterTest.scala 59:25]
+    end else if (2'h0 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+      if (axi_ctrl_start[1]) begin // @[AxiMasterTest.scala 64:32]
+        rd_state <= 2'h1; // @[AxiMasterTest.scala 66:18]
       end
-    end else if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-      if (read_master_ctrl_done) begin // @[AxiMasterTest.scala 79:36]
-        rd_state <= 2'h2; // @[AxiMasterTest.scala 79:47]
+    end else if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+      if (read_master_ctrl_done) begin // @[AxiMasterTest.scala 75:36]
+        rd_state <= 2'h2; // @[AxiMasterTest.scala 75:47]
       end
-    end else if (2'h2 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-      rd_state <= 2'h0; // @[AxiMasterTest.scala 84:18]
+    end else if (2'h2 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+      rd_state <= 2'h0; // @[AxiMasterTest.scala 80:18]
     end
-    if (reset) begin // @[AxiMasterTest.scala 64:23]
-      rd_cnt <= 2'h0; // @[AxiMasterTest.scala 64:23]
-    end else if (2'h0 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-      if (axi_ctrl_start[1]) begin // @[AxiMasterTest.scala 68:32]
-        rd_cnt <= 2'h0; // @[AxiMasterTest.scala 69:16]
+    if (reset) begin // @[AxiMasterTest.scala 60:23]
+      rd_cnt <= 2'h0; // @[AxiMasterTest.scala 60:23]
+    end else if (2'h0 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+      if (axi_ctrl_start[1]) begin // @[AxiMasterTest.scala 64:32]
+        rd_cnt <= 2'h0; // @[AxiMasterTest.scala 65:16]
       end
-    end else if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 66:21]
-      if (read_master_m_tvalid) begin // @[AxiMasterTest.scala 75:35]
-        rd_cnt <= _rd_cnt_T_1; // @[AxiMasterTest.scala 76:16]
+    end else if (2'h1 == rd_state) begin // @[AxiMasterTest.scala 62:21]
+      if (read_master_m_tvalid) begin // @[AxiMasterTest.scala 71:35]
+        rd_cnt <= _rd_cnt_T_1; // @[AxiMasterTest.scala 72:16]
       end
     end
   end

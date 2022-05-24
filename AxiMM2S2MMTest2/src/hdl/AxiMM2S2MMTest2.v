@@ -1106,71 +1106,6 @@ module AxiMM2S2MMTest2(
   input         s_axi_bready,
 
   (*
-    X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARADDR", X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI_LITE, CLK_DOMAIN clock, ID_WIDTH 0, PROTOCOL AXI4, DATA_WIDTH 32"
-     *)
-  output [31:0] m_axi_rd_araddr,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARVALID" *)
-  output        m_axi_rd_arvalid,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARREADY" *)
-  input         m_axi_rd_arready,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RDATA" *)
-  input  [31:0] m_axi_rd_rdata,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RRESP" *)
-  input  [1:0]  m_axi_rd_rresp,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RVALID" *)
-  input         m_axi_rd_rvalid,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RREADY" *)
-  output        m_axi_rd_rready,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARLEN" *)
-  output [7:0]  m_axi_rd_arlen,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RLAST" *)
-  input         m_axi_rd_rlast,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWADDR" *)
-  output [31:0] m_axi_wr_awaddr,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWVALID" *)
-  output        m_axi_wr_awvalid,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWREADY" *)
-  input         m_axi_wr_awready,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WDATA" *)
-  output [31:0] m_axi_wr_wdata,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WVALID" *)
-  output        m_axi_wr_wvalid,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WREADY" *)
-  input         m_axi_wr_wready,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BRESP" *)
-  input  [1:0]  m_axi_wr_bresp,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BVALID" *)
-  input         m_axi_wr_bvalid,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BREADY" *)
-  output        m_axi_wr_bready,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWLEN" *)
-  output [7:0]  m_axi_wr_awlen,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WSTRB" *)
-  output [3:0]  m_axi_wr_wstrb,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WLAST" *)
-  output        m_axi_wr_wlast,
-
-  (*
     X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TDATA", X_INTERFACE_PARAMETER = "XIL_INTERFACENAME M_AXIS, CLK_DOMAIN clock"
      *)
   output [31:0] m_axis_tdata,
@@ -1196,152 +1131,217 @@ module AxiMM2S2MMTest2(
   input         s_axis_tvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TREADY" *)
-  output        s_axis_tready
+  output        s_axis_tready,
+
+  (*
+    X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARADDR", X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI_LITE, CLK_DOMAIN clock, ID_WIDTH 0, PROTOCOL AXI4, DATA_WIDTH 32"
+     *)
+  output [31:0] m_axi_araddr,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARVALID" *)
+  output        m_axi_arvalid,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARREADY" *)
+  input         m_axi_arready,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RDATA" *)
+  input  [31:0] m_axi_rdata,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RRESP" *)
+  input  [1:0]  m_axi_rresp,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RVALID" *)
+  input         m_axi_rvalid,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RREADY" *)
+  output        m_axi_rready,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWADDR" *)
+  output [31:0] m_axi_awaddr,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWVALID" *)
+  output        m_axi_awvalid,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWREADY" *)
+  input         m_axi_awready,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WDATA" *)
+  output [31:0] m_axi_wdata,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WVALID" *)
+  output        m_axi_wvalid,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WREADY" *)
+  input         m_axi_wready,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BRESP" *)
+  input  [1:0]  m_axi_bresp,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BVALID" *)
+  input         m_axi_bvalid,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI BREADY" *)
+  output        m_axi_bready,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARLEN" *)
+  output [7:0]  m_axi_arlen,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RLAST" *)
+  input         m_axi_rlast,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWLEN" *)
+  output [7:0]  m_axi_awlen,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WSTRB" *)
+  output [3:0]  m_axi_wstrb,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI WLAST" *)
+  output        m_axi_wlast
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
   reg [31:0] _RAND_1;
 `endif // RANDOMIZE_REG_INIT
-  wire  axi_ctrl_clock; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_reset; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire [31:0] axi_ctrl_s_axi_araddr; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_arvalid; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_arready; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire [31:0] axi_ctrl_s_axi_rdata; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_rvalid; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_rready; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire [31:0] axi_ctrl_s_axi_awaddr; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_awvalid; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_awready; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire [31:0] axi_ctrl_s_axi_wdata; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_wvalid; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_wready; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_bvalid; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_s_axi_bready; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_start; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_done_0; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  axi_ctrl_done_1; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire [31:0] axi_ctrl_read_addr; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire [31:0] axi_ctrl_write_addr; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire [31:0] axi_ctrl_rw_length; // @[AxiMM2S2MMTest2.scala 14:24]
-  wire  read_master_clock; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_reset; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_ctrl_start; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_ctrl_done; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [31:0] read_master_ctrl_offset; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [31:0] read_master_ctrl_length; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [3:0] read_master_ctrl_fkeep; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [3:0] read_master_ctrl_lkeep; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_ctrl_prog_full; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [31:0] read_master_m_axi_araddr; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_m_axi_arvalid; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_m_axi_arready; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [31:0] read_master_m_axi_rdata; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_m_axi_rvalid; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_m_axi_rready; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [7:0] read_master_m_axi_arlen; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_m_axi_rlast; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [31:0] read_master_m_tdata; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [3:0] read_master_m_tkeep; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire  read_master_m_tvalid; // @[AxiMM2S2MMTest2.scala 20:27]
-  wire [31:0] rdDmaInfo_addr; // @[AxiMM2S2MMTest2.scala 25:25]
-  wire [31:0] rdDmaInfo_blength; // @[AxiMM2S2MMTest2.scala 25:25]
-  wire [31:0] rdDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 25:25]
-  wire [31:0] rdDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 25:25]
-  wire [3:0] rdDmaInfo_fkeep; // @[AxiMM2S2MMTest2.scala 25:25]
-  wire [3:0] rdDmaInfo_lkeep; // @[AxiMM2S2MMTest2.scala 25:25]
-  wire  rd_fifo_almost_empty_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_almost_full_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_dbiterr_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_injectdbiterr_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_injectsbiterr_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_m_aclk; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire [31:0] rd_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_m_axis_tdest; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_m_axis_tid; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire [3:0] rd_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_m_axis_tlast; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_m_axis_tready; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire [3:0] rd_fifo_m_axis_tstrb; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_m_axis_tuser; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_prog_empty_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_prog_full_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire [10:0] rd_fifo_rd_data_count_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_s_aclk; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_s_aresetn; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire [31:0] rd_fifo_s_axis_tdata; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_s_axis_tdest; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_s_axis_tid; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire [3:0] rd_fifo_s_axis_tkeep; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_s_axis_tlast; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_s_axis_tready; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire [3:0] rd_fifo_s_axis_tstrb; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_s_axis_tuser; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_s_axis_tvalid; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  rd_fifo_sbiterr_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire [10:0] rd_fifo_wr_data_count_axis; // @[AxiMM2S2MMTest2.scala 35:23]
-  wire  write_master_clock; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_reset; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_ctrl_start; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_ctrl_done; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [31:0] write_master_ctrl_offset; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [31:0] write_master_ctrl_length; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [31:0] write_master_m_axi_awaddr; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_m_axi_awvalid; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_m_axi_awready; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [31:0] write_master_m_axi_wdata; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_m_axi_wvalid; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_m_axi_wready; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_m_axi_bvalid; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_m_axi_bready; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [7:0] write_master_m_axi_awlen; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [3:0] write_master_m_axi_wstrb; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_m_axi_wlast; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [31:0] write_master_s_tdata; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [3:0] write_master_s_tkeep; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_s_tvalid; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire  write_master_s_tready; // @[AxiMM2S2MMTest2.scala 62:28]
-  wire [31:0] wrDmaInfo_addr; // @[AxiMM2S2MMTest2.scala 67:25]
-  wire [31:0] wrDmaInfo_blength; // @[AxiMM2S2MMTest2.scala 67:25]
-  wire [31:0] wrDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 67:25]
-  wire [31:0] wrDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 67:25]
-  wire [3:0] wrDmaInfo_fkeep; // @[AxiMM2S2MMTest2.scala 67:25]
-  wire [3:0] wrDmaInfo_lkeep; // @[AxiMM2S2MMTest2.scala 67:25]
-  wire  wr_fifo_almost_empty_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_almost_full_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_dbiterr_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_injectdbiterr_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_injectsbiterr_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_m_aclk; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire [31:0] wr_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_m_axis_tdest; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_m_axis_tid; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire [3:0] wr_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_m_axis_tlast; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_m_axis_tready; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire [3:0] wr_fifo_m_axis_tstrb; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_m_axis_tuser; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_prog_empty_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_prog_full_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire [7:0] wr_fifo_rd_data_count_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_s_aclk; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_s_aresetn; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire [31:0] wr_fifo_s_axis_tdata; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_s_axis_tdest; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_s_axis_tid; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire [3:0] wr_fifo_s_axis_tkeep; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_s_axis_tlast; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_s_axis_tready; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire [3:0] wr_fifo_s_axis_tstrb; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_s_axis_tuser; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_s_axis_tvalid; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire  wr_fifo_sbiterr_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  wire [7:0] wr_fifo_wr_data_count_axis; // @[AxiMM2S2MMTest2.scala 75:23]
-  reg  done_0; // @[AxiMM2S2MMTest2.scala 17:21]
-  reg  done_1; // @[AxiMM2S2MMTest2.scala 17:21]
-  AxiCtrlMM2S2MM axi_ctrl ( // @[AxiMM2S2MMTest2.scala 14:24]
+  wire  axi_ctrl_clock; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_reset; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire [31:0] axi_ctrl_s_axi_araddr; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_arvalid; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_arready; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire [31:0] axi_ctrl_s_axi_rdata; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_rvalid; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_rready; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire [31:0] axi_ctrl_s_axi_awaddr; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_awvalid; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_awready; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire [31:0] axi_ctrl_s_axi_wdata; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_wvalid; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_wready; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_bvalid; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_s_axi_bready; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_start; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_done_0; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  axi_ctrl_done_1; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire [31:0] axi_ctrl_read_addr; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire [31:0] axi_ctrl_write_addr; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire [31:0] axi_ctrl_rw_length; // @[AxiMM2S2MMTest2.scala 12:24]
+  wire  read_master_clock; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_reset; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_ctrl_start; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_ctrl_done; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [31:0] read_master_ctrl_offset; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [31:0] read_master_ctrl_length; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [3:0] read_master_ctrl_fkeep; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [3:0] read_master_ctrl_lkeep; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_ctrl_prog_full; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [31:0] read_master_m_axi_araddr; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_m_axi_arvalid; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_m_axi_arready; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [31:0] read_master_m_axi_rdata; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_m_axi_rvalid; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_m_axi_rready; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [7:0] read_master_m_axi_arlen; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_m_axi_rlast; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [31:0] read_master_m_tdata; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [3:0] read_master_m_tkeep; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire  read_master_m_tvalid; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [31:0] rdDmaInfo_addr; // @[AxiMM2S2MMTest2.scala 22:25]
+  wire [31:0] rdDmaInfo_blength; // @[AxiMM2S2MMTest2.scala 22:25]
+  wire [31:0] rdDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 22:25]
+  wire [31:0] rdDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 22:25]
+  wire [3:0] rdDmaInfo_fkeep; // @[AxiMM2S2MMTest2.scala 22:25]
+  wire [3:0] rdDmaInfo_lkeep; // @[AxiMM2S2MMTest2.scala 22:25]
+  wire  rd_fifo_almost_empty_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_almost_full_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_dbiterr_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_injectdbiterr_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_injectsbiterr_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_m_aclk; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire [31:0] rd_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_m_axis_tdest; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_m_axis_tid; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire [3:0] rd_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_m_axis_tlast; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_m_axis_tready; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire [3:0] rd_fifo_m_axis_tstrb; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_m_axis_tuser; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_prog_empty_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_prog_full_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire [10:0] rd_fifo_rd_data_count_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_s_aclk; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_s_aresetn; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire [31:0] rd_fifo_s_axis_tdata; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_s_axis_tdest; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_s_axis_tid; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire [3:0] rd_fifo_s_axis_tkeep; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_s_axis_tlast; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_s_axis_tready; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire [3:0] rd_fifo_s_axis_tstrb; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_s_axis_tuser; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_s_axis_tvalid; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  rd_fifo_sbiterr_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire [10:0] rd_fifo_wr_data_count_axis; // @[AxiMM2S2MMTest2.scala 32:23]
+  wire  write_master_clock; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_reset; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_ctrl_start; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_ctrl_done; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [31:0] write_master_ctrl_offset; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [31:0] write_master_ctrl_length; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [31:0] write_master_m_axi_awaddr; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_m_axi_awvalid; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_m_axi_awready; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [31:0] write_master_m_axi_wdata; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_m_axi_wvalid; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_m_axi_wready; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_m_axi_bvalid; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_m_axi_bready; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [7:0] write_master_m_axi_awlen; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [3:0] write_master_m_axi_wstrb; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_m_axi_wlast; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [31:0] write_master_s_tdata; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [3:0] write_master_s_tkeep; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_s_tvalid; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire  write_master_s_tready; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [31:0] wrDmaInfo_addr; // @[AxiMM2S2MMTest2.scala 63:25]
+  wire [31:0] wrDmaInfo_blength; // @[AxiMM2S2MMTest2.scala 63:25]
+  wire [31:0] wrDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 63:25]
+  wire [31:0] wrDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 63:25]
+  wire [3:0] wrDmaInfo_fkeep; // @[AxiMM2S2MMTest2.scala 63:25]
+  wire [3:0] wrDmaInfo_lkeep; // @[AxiMM2S2MMTest2.scala 63:25]
+  wire  wr_fifo_almost_empty_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_almost_full_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_dbiterr_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_injectdbiterr_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_injectsbiterr_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_m_aclk; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire [31:0] wr_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_m_axis_tdest; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_m_axis_tid; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire [3:0] wr_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_m_axis_tlast; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_m_axis_tready; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire [3:0] wr_fifo_m_axis_tstrb; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_m_axis_tuser; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_prog_empty_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_prog_full_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire [7:0] wr_fifo_rd_data_count_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_s_aclk; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_s_aresetn; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire [31:0] wr_fifo_s_axis_tdata; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_s_axis_tdest; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_s_axis_tid; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire [3:0] wr_fifo_s_axis_tkeep; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_s_axis_tlast; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_s_axis_tready; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire [3:0] wr_fifo_s_axis_tstrb; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_s_axis_tuser; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_s_axis_tvalid; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire  wr_fifo_sbiterr_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  wire [7:0] wr_fifo_wr_data_count_axis; // @[AxiMM2S2MMTest2.scala 71:23]
+  reg  done_0; // @[AxiMM2S2MMTest2.scala 15:21]
+  reg  done_1; // @[AxiMM2S2MMTest2.scala 15:21]
+  AxiCtrlMM2S2MM axi_ctrl ( // @[AxiMM2S2MMTest2.scala 12:24]
     .clock(axi_ctrl_clock),
     .reset(axi_ctrl_reset),
     .s_axi_araddr(axi_ctrl_s_axi_araddr),
@@ -1365,7 +1365,7 @@ module AxiMM2S2MMTest2(
     .write_addr(axi_ctrl_write_addr),
     .rw_length(axi_ctrl_rw_length)
   );
-  AxiReadMaster read_master ( // @[AxiMM2S2MMTest2.scala 20:27]
+  AxiReadMaster read_master ( // @[AxiMM2S2MMTest2.scala 18:27]
     .clock(read_master_clock),
     .reset(read_master_reset),
     .ctrl_start(read_master_ctrl_start),
@@ -1387,7 +1387,7 @@ module AxiMM2S2MMTest2(
     .m_tkeep(read_master_m_tkeep),
     .m_tvalid(read_master_m_tvalid)
   );
-  DmaInfo rdDmaInfo ( // @[AxiMM2S2MMTest2.scala 25:25]
+  DmaInfo rdDmaInfo ( // @[AxiMM2S2MMTest2.scala 22:25]
     .addr(rdDmaInfo_addr),
     .blength(rdDmaInfo_blength),
     .offset(rdDmaInfo_offset),
@@ -1397,7 +1397,7 @@ module AxiMM2S2MMTest2(
   );
   xpm_fifo_axis
     #(.RD_DATA_COUNT_WIDTH(11), .TID_WIDTH(1), .TDEST_WIDTH(1), .PROG_EMPTY_THRESH(10), .TUSER_WIDTH(1), .FIFO_DEPTH(1024), .WR_DATA_COUNT_WIDTH(11), .ECC_MODE("no_ecc"), .FIFO_MEMORY_TYPE("auto"), .PROG_FULL_THRESH(254), .TDATA_WIDTH(32))
-    rd_fifo ( // @[AxiMM2S2MMTest2.scala 35:23]
+    rd_fifo ( // @[AxiMM2S2MMTest2.scala 32:23]
     .almost_empty_axis(rd_fifo_almost_empty_axis),
     .almost_full_axis(rd_fifo_almost_full_axis),
     .dbiterr_axis(rd_fifo_dbiterr_axis),
@@ -1430,7 +1430,7 @@ module AxiMM2S2MMTest2(
     .sbiterr_axis(rd_fifo_sbiterr_axis),
     .wr_data_count_axis(rd_fifo_wr_data_count_axis)
   );
-  AxiWriteMaster write_master ( // @[AxiMM2S2MMTest2.scala 62:28]
+  AxiWriteMaster write_master ( // @[AxiMM2S2MMTest2.scala 59:28]
     .clock(write_master_clock),
     .reset(write_master_reset),
     .ctrl_start(write_master_ctrl_start),
@@ -1453,7 +1453,7 @@ module AxiMM2S2MMTest2(
     .s_tvalid(write_master_s_tvalid),
     .s_tready(write_master_s_tready)
   );
-  DmaInfo wrDmaInfo ( // @[AxiMM2S2MMTest2.scala 67:25]
+  DmaInfo wrDmaInfo ( // @[AxiMM2S2MMTest2.scala 63:25]
     .addr(wrDmaInfo_addr),
     .blength(wrDmaInfo_blength),
     .offset(wrDmaInfo_offset),
@@ -1463,7 +1463,7 @@ module AxiMM2S2MMTest2(
   );
   xpm_fifo_axis
     #(.RD_DATA_COUNT_WIDTH(8), .TID_WIDTH(1), .TDEST_WIDTH(1), .PROG_EMPTY_THRESH(10), .TUSER_WIDTH(1), .FIFO_DEPTH(256), .WR_DATA_COUNT_WIDTH(8), .ECC_MODE("no_ecc"), .FIFO_MEMORY_TYPE("auto"), .PROG_FULL_THRESH(10), .TDATA_WIDTH(32))
-    wr_fifo ( // @[AxiMM2S2MMTest2.scala 75:23]
+    wr_fifo ( // @[AxiMM2S2MMTest2.scala 71:23]
     .almost_empty_axis(wr_fifo_almost_empty_axis),
     .almost_full_axis(wr_fifo_almost_full_axis),
     .dbiterr_axis(wr_fifo_dbiterr_axis),
@@ -1496,107 +1496,107 @@ module AxiMM2S2MMTest2(
     .sbiterr_axis(wr_fifo_sbiterr_axis),
     .wr_data_count_axis(wr_fifo_wr_data_count_axis)
   );
-  assign s_axi_arready = axi_ctrl_s_axi_arready; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign s_axi_rdata = axi_ctrl_s_axi_rdata; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign s_axi_rresp = 2'h0; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign s_axi_rvalid = axi_ctrl_s_axi_rvalid; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign s_axi_awready = axi_ctrl_s_axi_awready; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign s_axi_wready = axi_ctrl_s_axi_wready; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign s_axi_bresp = 2'h0; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign s_axi_bvalid = axi_ctrl_s_axi_bvalid; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign m_axi_rd_araddr = read_master_m_axi_araddr; // @[AxiMM2S2MMTest2.scala 21:21]
-  assign m_axi_rd_arvalid = read_master_m_axi_arvalid; // @[AxiMM2S2MMTest2.scala 21:21]
-  assign m_axi_rd_rready = 1'h1; // @[AxiMM2S2MMTest2.scala 21:21]
-  assign m_axi_rd_arlen = read_master_m_axi_arlen; // @[AxiMM2S2MMTest2.scala 21:21]
-  assign m_axi_wr_awaddr = write_master_m_axi_awaddr; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign m_axi_wr_awvalid = write_master_m_axi_awvalid; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign m_axi_wr_wdata = write_master_m_axi_wdata; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign m_axi_wr_wvalid = write_master_m_axi_wvalid; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign m_axi_wr_bready = 1'h1; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign m_axi_wr_awlen = write_master_m_axi_awlen; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign m_axi_wr_wstrb = write_master_m_axi_wstrb; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign m_axi_wr_wlast = write_master_m_axi_wlast; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign m_axis_tdata = rd_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 56:16]
-  assign m_axis_tkeep = rd_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 57:16]
-  assign m_axis_tvalid = rd_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 58:17]
-  assign s_axis_tready = wr_fifo_s_axis_tready; // @[AxiMM2S2MMTest2.scala 99:17]
+  assign s_axi_arready = axi_ctrl_s_axi_arready; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign s_axi_rdata = axi_ctrl_s_axi_rdata; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign s_axi_rresp = 2'h0; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign s_axi_rvalid = axi_ctrl_s_axi_rvalid; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign s_axi_awready = axi_ctrl_s_axi_awready; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign s_axi_wready = axi_ctrl_s_axi_wready; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign s_axi_bresp = 2'h0; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign s_axi_bvalid = axi_ctrl_s_axi_bvalid; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign m_axis_tdata = rd_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 53:16]
+  assign m_axis_tkeep = rd_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 54:16]
+  assign m_axis_tvalid = rd_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 55:17]
+  assign s_axis_tready = wr_fifo_s_axis_tready; // @[AxiMM2S2MMTest2.scala 95:17]
+  assign m_axi_araddr = read_master_m_axi_araddr; // @[AxiIO.scala 49:15]
+  assign m_axi_arvalid = read_master_m_axi_arvalid; // @[AxiIO.scala 51:16]
+  assign m_axi_rready = 1'h1; // @[AxiIO.scala 57:15]
+  assign m_axi_awaddr = write_master_m_axi_awaddr; // @[AxiIO.scala 58:15]
+  assign m_axi_awvalid = write_master_m_axi_awvalid; // @[AxiIO.scala 60:16]
+  assign m_axi_wdata = write_master_m_axi_wdata; // @[AxiIO.scala 62:14]
+  assign m_axi_wvalid = write_master_m_axi_wvalid; // @[AxiIO.scala 65:15]
+  assign m_axi_bready = 1'h1; // @[AxiIO.scala 69:15]
+  assign m_axi_arlen = read_master_m_axi_arlen; // @[AxiIO.scala 50:14]
+  assign m_axi_awlen = write_master_m_axi_awlen; // @[AxiIO.scala 59:14]
+  assign m_axi_wstrb = write_master_m_axi_wstrb; // @[AxiIO.scala 63:14]
+  assign m_axi_wlast = write_master_m_axi_wlast; // @[AxiIO.scala 64:14]
   assign axi_ctrl_clock = clock;
   assign axi_ctrl_reset = reset;
-  assign axi_ctrl_s_axi_araddr = s_axi_araddr; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign axi_ctrl_s_axi_arvalid = s_axi_arvalid; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign axi_ctrl_s_axi_rready = s_axi_rready; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign axi_ctrl_s_axi_awaddr = s_axi_awaddr; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign axi_ctrl_s_axi_awvalid = s_axi_awvalid; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign axi_ctrl_s_axi_wdata = s_axi_wdata; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign axi_ctrl_s_axi_wvalid = s_axi_wvalid; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign axi_ctrl_s_axi_bready = s_axi_bready; // @[AxiMM2S2MMTest2.scala 15:18]
-  assign axi_ctrl_done_0 = done_0; // @[AxiMM2S2MMTest2.scala 18:17]
-  assign axi_ctrl_done_1 = done_1; // @[AxiMM2S2MMTest2.scala 18:17]
+  assign axi_ctrl_s_axi_araddr = s_axi_araddr; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign axi_ctrl_s_axi_arvalid = s_axi_arvalid; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign axi_ctrl_s_axi_rready = s_axi_rready; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign axi_ctrl_s_axi_awaddr = s_axi_awaddr; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign axi_ctrl_s_axi_awvalid = s_axi_awvalid; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign axi_ctrl_s_axi_wdata = s_axi_wdata; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign axi_ctrl_s_axi_wvalid = s_axi_wvalid; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign axi_ctrl_s_axi_bready = s_axi_bready; // @[AxiMM2S2MMTest2.scala 13:18]
+  assign axi_ctrl_done_0 = done_0; // @[AxiMM2S2MMTest2.scala 16:17]
+  assign axi_ctrl_done_1 = done_1; // @[AxiMM2S2MMTest2.scala 16:17]
   assign read_master_clock = clock;
   assign read_master_reset = reset;
-  assign read_master_ctrl_start = axi_ctrl_start; // @[AxiMM2S2MMTest2.scala 22:26]
-  assign read_master_ctrl_offset = rdDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 29:27]
-  assign read_master_ctrl_length = rdDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 30:27]
-  assign read_master_ctrl_fkeep = rdDmaInfo_fkeep; // @[AxiMM2S2MMTest2.scala 31:26]
-  assign read_master_ctrl_lkeep = rdDmaInfo_lkeep; // @[AxiMM2S2MMTest2.scala 32:26]
-  assign read_master_ctrl_prog_full = rd_fifo_prog_full_axis; // @[AxiMM2S2MMTest2.scala 49:30]
-  assign read_master_m_axi_arready = m_axi_rd_arready; // @[AxiMM2S2MMTest2.scala 21:21]
-  assign read_master_m_axi_rdata = m_axi_rd_rdata; // @[AxiMM2S2MMTest2.scala 21:21]
-  assign read_master_m_axi_rvalid = m_axi_rd_rvalid; // @[AxiMM2S2MMTest2.scala 21:21]
-  assign read_master_m_axi_rlast = m_axi_rd_rlast; // @[AxiMM2S2MMTest2.scala 21:21]
-  assign rdDmaInfo_addr = axi_ctrl_read_addr; // @[AxiMM2S2MMTest2.scala 26:18]
-  assign rdDmaInfo_blength = axi_ctrl_rw_length; // @[AxiMM2S2MMTest2.scala 27:21]
-  assign rd_fifo_injectdbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 43:30]
-  assign rd_fifo_injectsbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 44:30]
-  assign rd_fifo_m_aclk = clock; // @[AxiMM2S2MMTest2.scala 40:18]
-  assign rd_fifo_m_axis_tready = m_axis_tready; // @[AxiMM2S2MMTest2.scala 59:25]
-  assign rd_fifo_s_aclk = clock; // @[AxiMM2S2MMTest2.scala 41:18]
-  assign rd_fifo_s_aresetn = ~reset; // @[AxiMM2S2MMTest2.scala 42:24]
-  assign rd_fifo_s_axis_tdata = read_master_m_tdata; // @[AxiMM2S2MMTest2.scala 50:24]
-  assign rd_fifo_s_axis_tdest = 1'h0; // @[AxiMM2S2MMTest2.scala 45:24]
-  assign rd_fifo_s_axis_tid = 1'h0; // @[AxiMM2S2MMTest2.scala 46:22]
-  assign rd_fifo_s_axis_tkeep = read_master_m_tkeep; // @[AxiMM2S2MMTest2.scala 51:24]
-  assign rd_fifo_s_axis_tlast = 1'h0; // @[AxiMM2S2MMTest2.scala 48:24]
-  assign rd_fifo_s_axis_tstrb = read_master_m_tkeep; // @[AxiMM2S2MMTest2.scala 52:24]
-  assign rd_fifo_s_axis_tuser = 1'h0; // @[AxiMM2S2MMTest2.scala 47:24]
-  assign rd_fifo_s_axis_tvalid = read_master_m_tvalid; // @[AxiMM2S2MMTest2.scala 53:25]
+  assign read_master_ctrl_start = axi_ctrl_start; // @[AxiMM2S2MMTest2.scala 19:26]
+  assign read_master_ctrl_offset = rdDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 26:27]
+  assign read_master_ctrl_length = rdDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 27:27]
+  assign read_master_ctrl_fkeep = rdDmaInfo_fkeep; // @[AxiMM2S2MMTest2.scala 28:26]
+  assign read_master_ctrl_lkeep = rdDmaInfo_lkeep; // @[AxiMM2S2MMTest2.scala 29:26]
+  assign read_master_ctrl_prog_full = rd_fifo_prog_full_axis; // @[AxiMM2S2MMTest2.scala 46:30]
+  assign read_master_m_axi_arready = m_axi_arready; // @[AxiIO.scala 52:20]
+  assign read_master_m_axi_rdata = m_axi_rdata; // @[AxiIO.scala 53:18]
+  assign read_master_m_axi_rvalid = m_axi_rvalid; // @[AxiIO.scala 56:19]
+  assign read_master_m_axi_rlast = m_axi_rlast; // @[AxiIO.scala 54:18]
+  assign rdDmaInfo_addr = axi_ctrl_read_addr; // @[AxiMM2S2MMTest2.scala 23:18]
+  assign rdDmaInfo_blength = axi_ctrl_rw_length; // @[AxiMM2S2MMTest2.scala 24:21]
+  assign rd_fifo_injectdbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 40:30]
+  assign rd_fifo_injectsbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 41:30]
+  assign rd_fifo_m_aclk = clock; // @[AxiMM2S2MMTest2.scala 37:18]
+  assign rd_fifo_m_axis_tready = m_axis_tready; // @[AxiMM2S2MMTest2.scala 56:25]
+  assign rd_fifo_s_aclk = clock; // @[AxiMM2S2MMTest2.scala 38:18]
+  assign rd_fifo_s_aresetn = ~reset; // @[AxiMM2S2MMTest2.scala 39:24]
+  assign rd_fifo_s_axis_tdata = read_master_m_tdata; // @[AxiMM2S2MMTest2.scala 47:24]
+  assign rd_fifo_s_axis_tdest = 1'h0; // @[AxiMM2S2MMTest2.scala 42:24]
+  assign rd_fifo_s_axis_tid = 1'h0; // @[AxiMM2S2MMTest2.scala 43:22]
+  assign rd_fifo_s_axis_tkeep = read_master_m_tkeep; // @[AxiMM2S2MMTest2.scala 48:24]
+  assign rd_fifo_s_axis_tlast = 1'h0; // @[AxiMM2S2MMTest2.scala 45:24]
+  assign rd_fifo_s_axis_tstrb = read_master_m_tkeep; // @[AxiMM2S2MMTest2.scala 49:24]
+  assign rd_fifo_s_axis_tuser = 1'h0; // @[AxiMM2S2MMTest2.scala 44:24]
+  assign rd_fifo_s_axis_tvalid = read_master_m_tvalid; // @[AxiMM2S2MMTest2.scala 50:25]
   assign write_master_clock = clock;
   assign write_master_reset = reset;
-  assign write_master_ctrl_start = axi_ctrl_start; // @[AxiMM2S2MMTest2.scala 64:27]
-  assign write_master_ctrl_offset = wrDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 71:28]
-  assign write_master_ctrl_length = wrDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 72:28]
-  assign write_master_m_axi_awready = m_axi_wr_awready; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign write_master_m_axi_wready = m_axi_wr_wready; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign write_master_m_axi_bvalid = m_axi_wr_bvalid; // @[AxiMM2S2MMTest2.scala 63:22]
-  assign write_master_s_tdata = wr_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 90:24]
-  assign write_master_s_tkeep = wr_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 91:24]
-  assign write_master_s_tvalid = wr_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 92:25]
-  assign wrDmaInfo_addr = axi_ctrl_write_addr; // @[AxiMM2S2MMTest2.scala 68:18]
-  assign wrDmaInfo_blength = axi_ctrl_rw_length; // @[AxiMM2S2MMTest2.scala 69:21]
-  assign wr_fifo_injectdbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 83:30]
-  assign wr_fifo_injectsbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 84:30]
-  assign wr_fifo_m_aclk = clock; // @[AxiMM2S2MMTest2.scala 80:18]
-  assign wr_fifo_m_axis_tready = write_master_s_tready; // @[AxiMM2S2MMTest2.scala 93:25]
-  assign wr_fifo_s_aclk = clock; // @[AxiMM2S2MMTest2.scala 81:18]
-  assign wr_fifo_s_aresetn = ~reset; // @[AxiMM2S2MMTest2.scala 82:24]
-  assign wr_fifo_s_axis_tdata = s_axis_tdata; // @[AxiMM2S2MMTest2.scala 95:24]
-  assign wr_fifo_s_axis_tdest = 1'h0; // @[AxiMM2S2MMTest2.scala 85:24]
-  assign wr_fifo_s_axis_tid = 1'h0; // @[AxiMM2S2MMTest2.scala 86:22]
-  assign wr_fifo_s_axis_tkeep = s_axis_tkeep; // @[AxiMM2S2MMTest2.scala 96:24]
-  assign wr_fifo_s_axis_tlast = 1'h0; // @[AxiMM2S2MMTest2.scala 88:24]
-  assign wr_fifo_s_axis_tstrb = s_axis_tkeep; // @[AxiMM2S2MMTest2.scala 97:24]
-  assign wr_fifo_s_axis_tuser = 1'h0; // @[AxiMM2S2MMTest2.scala 87:24]
-  assign wr_fifo_s_axis_tvalid = s_axis_tvalid; // @[AxiMM2S2MMTest2.scala 98:25]
+  assign write_master_ctrl_start = axi_ctrl_start; // @[AxiMM2S2MMTest2.scala 60:27]
+  assign write_master_ctrl_offset = wrDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 67:28]
+  assign write_master_ctrl_length = wrDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 68:28]
+  assign write_master_m_axi_awready = m_axi_awready; // @[AxiIO.scala 61:21]
+  assign write_master_m_axi_wready = m_axi_wready; // @[AxiIO.scala 66:20]
+  assign write_master_m_axi_bvalid = m_axi_bvalid; // @[AxiIO.scala 68:20]
+  assign write_master_s_tdata = wr_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 86:24]
+  assign write_master_s_tkeep = wr_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 87:24]
+  assign write_master_s_tvalid = wr_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 88:25]
+  assign wrDmaInfo_addr = axi_ctrl_write_addr; // @[AxiMM2S2MMTest2.scala 64:18]
+  assign wrDmaInfo_blength = axi_ctrl_rw_length; // @[AxiMM2S2MMTest2.scala 65:21]
+  assign wr_fifo_injectdbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 79:30]
+  assign wr_fifo_injectsbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 80:30]
+  assign wr_fifo_m_aclk = clock; // @[AxiMM2S2MMTest2.scala 76:18]
+  assign wr_fifo_m_axis_tready = write_master_s_tready; // @[AxiMM2S2MMTest2.scala 89:25]
+  assign wr_fifo_s_aclk = clock; // @[AxiMM2S2MMTest2.scala 77:18]
+  assign wr_fifo_s_aresetn = ~reset; // @[AxiMM2S2MMTest2.scala 78:24]
+  assign wr_fifo_s_axis_tdata = s_axis_tdata; // @[AxiMM2S2MMTest2.scala 91:24]
+  assign wr_fifo_s_axis_tdest = 1'h0; // @[AxiMM2S2MMTest2.scala 81:24]
+  assign wr_fifo_s_axis_tid = 1'h0; // @[AxiMM2S2MMTest2.scala 82:22]
+  assign wr_fifo_s_axis_tkeep = s_axis_tkeep; // @[AxiMM2S2MMTest2.scala 92:24]
+  assign wr_fifo_s_axis_tlast = 1'h0; // @[AxiMM2S2MMTest2.scala 84:24]
+  assign wr_fifo_s_axis_tstrb = s_axis_tkeep; // @[AxiMM2S2MMTest2.scala 93:24]
+  assign wr_fifo_s_axis_tuser = 1'h0; // @[AxiMM2S2MMTest2.scala 83:24]
+  assign wr_fifo_s_axis_tvalid = s_axis_tvalid; // @[AxiMM2S2MMTest2.scala 94:25]
   always @(posedge clock) begin
-    if (reset) begin // @[AxiMM2S2MMTest2.scala 17:21]
-      done_0 <= 1'h0; // @[AxiMM2S2MMTest2.scala 17:21]
+    if (reset) begin // @[AxiMM2S2MMTest2.scala 15:21]
+      done_0 <= 1'h0; // @[AxiMM2S2MMTest2.scala 15:21]
     end else begin
-      done_0 <= read_master_ctrl_done | done_0; // @[AxiMM2S2MMTest2.scala 23:11]
+      done_0 <= read_master_ctrl_done | done_0; // @[AxiMM2S2MMTest2.scala 20:11]
     end
-    if (reset) begin // @[AxiMM2S2MMTest2.scala 17:21]
-      done_1 <= 1'h0; // @[AxiMM2S2MMTest2.scala 17:21]
+    if (reset) begin // @[AxiMM2S2MMTest2.scala 15:21]
+      done_1 <= 1'h0; // @[AxiMM2S2MMTest2.scala 15:21]
     end else begin
-      done_1 <= write_master_ctrl_done | done_1; // @[AxiMM2S2MMTest2.scala 65:11]
+      done_1 <= write_master_ctrl_done | done_1; // @[AxiMM2S2MMTest2.scala 61:11]
     end
   end
 // Register and memory initialization
