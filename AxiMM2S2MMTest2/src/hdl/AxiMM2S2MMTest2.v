@@ -401,8 +401,8 @@ module AxiReadMaster(
   output [7:0]  m_axi_arlen,
   input         m_axi_rlast,
   output [31:0] m_tdata,
-  output [3:0]  m_tkeep,
-  output        m_tvalid
+  output        m_tvalid,
+  output [3:0]  m_tkeep
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -491,8 +491,8 @@ module AxiReadMaster(
   assign m_axi_rready = 1'h1; // @[AxiReadMaster.scala 91:16]
   assign m_axi_arlen = ar_final_transaction | start & single_transaction ? final_burst_len : 8'hff; // @[AxiReadMaster.scala 47:21]
   assign m_tdata = m_axi_rdata; // @[AxiReadMaster.scala 83:11]
-  assign m_tkeep = _m_tkeep_T ? _m_tkeep_T_1 : _m_tkeep_T_7; // @[Mux.scala 101:16]
   assign m_tvalid = m_axi_rvalid; // @[AxiReadMaster.scala 82:12]
+  assign m_tkeep = _m_tkeep_T ? _m_tkeep_T_1 : _m_tkeep_T_7; // @[Mux.scala 101:16]
   assign ar_transaction_cntr_clock = clock;
   assign ar_transaction_cntr_reset = reset;
   assign ar_transaction_cntr_load = start; // @[AxiReadMaster.scala 62:28]
@@ -793,9 +793,9 @@ module AxiWriteMaster(
   output [3:0]  m_axi_wstrb,
   output        m_axi_wlast,
   input  [31:0] s_tdata,
-  input  [3:0]  s_tkeep,
   input         s_tvalid,
-  output        s_tready
+  output        s_tready,
+  input  [3:0]  s_tkeep
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -1110,28 +1110,28 @@ module AxiMM2S2MMTest2(
      *)
   output [31:0] m_axis_tdata,
 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TKEEP" *)
-  output [3:0]  m_axis_tkeep,
-
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TVALID" *)
   output        m_axis_tvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TREADY" *)
   input         m_axis_tready,
 
+  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TKEEP" *)
+  output [3:0]  m_axis_tkeep,
+
   (*
     X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TDATA", X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXIS, CLK_DOMAIN clock"
      *)
   input  [31:0] s_axis_tdata,
-
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TKEEP" *)
-  input  [3:0]  s_axis_tkeep,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TVALID" *)
   input         s_axis_tvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TREADY" *)
   output        s_axis_tready,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TKEEP" *)
+  input  [3:0]  s_axis_tkeep,
 
   (*
     X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI ARADDR", X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI_LITE, CLK_DOMAIN clock, ID_WIDTH 0, PROTOCOL AXI4, DATA_WIDTH 32"
@@ -1242,8 +1242,8 @@ module AxiMM2S2MMTest2(
   wire [7:0] read_master_m_axi_arlen; // @[AxiMM2S2MMTest2.scala 18:27]
   wire  read_master_m_axi_rlast; // @[AxiMM2S2MMTest2.scala 18:27]
   wire [31:0] read_master_m_tdata; // @[AxiMM2S2MMTest2.scala 18:27]
-  wire [3:0] read_master_m_tkeep; // @[AxiMM2S2MMTest2.scala 18:27]
   wire  read_master_m_tvalid; // @[AxiMM2S2MMTest2.scala 18:27]
+  wire [3:0] read_master_m_tkeep; // @[AxiMM2S2MMTest2.scala 18:27]
   wire [31:0] rdDmaInfo_addr; // @[AxiMM2S2MMTest2.scala 22:25]
   wire [31:0] rdDmaInfo_blength; // @[AxiMM2S2MMTest2.scala 22:25]
   wire [31:0] rdDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 22:25]
@@ -1299,9 +1299,9 @@ module AxiMM2S2MMTest2(
   wire [3:0] write_master_m_axi_wstrb; // @[AxiMM2S2MMTest2.scala 59:28]
   wire  write_master_m_axi_wlast; // @[AxiMM2S2MMTest2.scala 59:28]
   wire [31:0] write_master_s_tdata; // @[AxiMM2S2MMTest2.scala 59:28]
-  wire [3:0] write_master_s_tkeep; // @[AxiMM2S2MMTest2.scala 59:28]
   wire  write_master_s_tvalid; // @[AxiMM2S2MMTest2.scala 59:28]
   wire  write_master_s_tready; // @[AxiMM2S2MMTest2.scala 59:28]
+  wire [3:0] write_master_s_tkeep; // @[AxiMM2S2MMTest2.scala 59:28]
   wire [31:0] wrDmaInfo_addr; // @[AxiMM2S2MMTest2.scala 63:25]
   wire [31:0] wrDmaInfo_blength; // @[AxiMM2S2MMTest2.scala 63:25]
   wire [31:0] wrDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 63:25]
@@ -1384,8 +1384,8 @@ module AxiMM2S2MMTest2(
     .m_axi_arlen(read_master_m_axi_arlen),
     .m_axi_rlast(read_master_m_axi_rlast),
     .m_tdata(read_master_m_tdata),
-    .m_tkeep(read_master_m_tkeep),
-    .m_tvalid(read_master_m_tvalid)
+    .m_tvalid(read_master_m_tvalid),
+    .m_tkeep(read_master_m_tkeep)
   );
   DmaInfo rdDmaInfo ( // @[AxiMM2S2MMTest2.scala 22:25]
     .addr(rdDmaInfo_addr),
@@ -1449,9 +1449,9 @@ module AxiMM2S2MMTest2(
     .m_axi_wstrb(write_master_m_axi_wstrb),
     .m_axi_wlast(write_master_m_axi_wlast),
     .s_tdata(write_master_s_tdata),
-    .s_tkeep(write_master_s_tkeep),
     .s_tvalid(write_master_s_tvalid),
-    .s_tready(write_master_s_tready)
+    .s_tready(write_master_s_tready),
+    .s_tkeep(write_master_s_tkeep)
   );
   DmaInfo wrDmaInfo ( // @[AxiMM2S2MMTest2.scala 63:25]
     .addr(wrDmaInfo_addr),
@@ -1505,21 +1505,21 @@ module AxiMM2S2MMTest2(
   assign s_axi_bresp = 2'h0; // @[AxiMM2S2MMTest2.scala 13:18]
   assign s_axi_bvalid = axi_ctrl_s_axi_bvalid; // @[AxiMM2S2MMTest2.scala 13:18]
   assign m_axis_tdata = rd_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 53:16]
-  assign m_axis_tkeep = rd_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 54:16]
   assign m_axis_tvalid = rd_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 55:17]
+  assign m_axis_tkeep = rd_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 54:16]
   assign s_axis_tready = wr_fifo_s_axis_tready; // @[AxiMM2S2MMTest2.scala 95:17]
-  assign m_axi_araddr = read_master_m_axi_araddr; // @[AxiIO.scala 49:15]
-  assign m_axi_arvalid = read_master_m_axi_arvalid; // @[AxiIO.scala 51:16]
-  assign m_axi_rready = 1'h1; // @[AxiIO.scala 57:15]
-  assign m_axi_awaddr = write_master_m_axi_awaddr; // @[AxiIO.scala 58:15]
-  assign m_axi_awvalid = write_master_m_axi_awvalid; // @[AxiIO.scala 60:16]
-  assign m_axi_wdata = write_master_m_axi_wdata; // @[AxiIO.scala 62:14]
-  assign m_axi_wvalid = write_master_m_axi_wvalid; // @[AxiIO.scala 65:15]
-  assign m_axi_bready = 1'h1; // @[AxiIO.scala 69:15]
-  assign m_axi_arlen = read_master_m_axi_arlen; // @[AxiIO.scala 50:14]
-  assign m_axi_awlen = write_master_m_axi_awlen; // @[AxiIO.scala 59:14]
-  assign m_axi_wstrb = write_master_m_axi_wstrb; // @[AxiIO.scala 63:14]
-  assign m_axi_wlast = write_master_m_axi_wlast; // @[AxiIO.scala 64:14]
+  assign m_axi_araddr = read_master_m_axi_araddr; // @[AxiIO.scala 51:15]
+  assign m_axi_arvalid = read_master_m_axi_arvalid; // @[AxiIO.scala 53:16]
+  assign m_axi_rready = 1'h1; // @[AxiIO.scala 59:15]
+  assign m_axi_awaddr = write_master_m_axi_awaddr; // @[AxiIO.scala 60:15]
+  assign m_axi_awvalid = write_master_m_axi_awvalid; // @[AxiIO.scala 62:16]
+  assign m_axi_wdata = write_master_m_axi_wdata; // @[AxiIO.scala 64:14]
+  assign m_axi_wvalid = write_master_m_axi_wvalid; // @[AxiIO.scala 67:15]
+  assign m_axi_bready = 1'h1; // @[AxiIO.scala 71:15]
+  assign m_axi_arlen = read_master_m_axi_arlen; // @[AxiIO.scala 52:14]
+  assign m_axi_awlen = write_master_m_axi_awlen; // @[AxiIO.scala 61:14]
+  assign m_axi_wstrb = write_master_m_axi_wstrb; // @[AxiIO.scala 65:14]
+  assign m_axi_wlast = write_master_m_axi_wlast; // @[AxiIO.scala 66:14]
   assign axi_ctrl_clock = clock;
   assign axi_ctrl_reset = reset;
   assign axi_ctrl_s_axi_araddr = s_axi_araddr; // @[AxiMM2S2MMTest2.scala 13:18]
@@ -1540,10 +1540,10 @@ module AxiMM2S2MMTest2(
   assign read_master_ctrl_fkeep = rdDmaInfo_fkeep; // @[AxiMM2S2MMTest2.scala 28:26]
   assign read_master_ctrl_lkeep = rdDmaInfo_lkeep; // @[AxiMM2S2MMTest2.scala 29:26]
   assign read_master_ctrl_prog_full = rd_fifo_prog_full_axis; // @[AxiMM2S2MMTest2.scala 46:30]
-  assign read_master_m_axi_arready = m_axi_arready; // @[AxiIO.scala 52:20]
-  assign read_master_m_axi_rdata = m_axi_rdata; // @[AxiIO.scala 53:18]
-  assign read_master_m_axi_rvalid = m_axi_rvalid; // @[AxiIO.scala 56:19]
-  assign read_master_m_axi_rlast = m_axi_rlast; // @[AxiIO.scala 54:18]
+  assign read_master_m_axi_arready = m_axi_arready; // @[AxiIO.scala 54:20]
+  assign read_master_m_axi_rdata = m_axi_rdata; // @[AxiIO.scala 55:18]
+  assign read_master_m_axi_rvalid = m_axi_rvalid; // @[AxiIO.scala 58:19]
+  assign read_master_m_axi_rlast = m_axi_rlast; // @[AxiIO.scala 56:18]
   assign rdDmaInfo_addr = axi_ctrl_read_addr; // @[AxiMM2S2MMTest2.scala 23:18]
   assign rdDmaInfo_blength = axi_ctrl_rw_length; // @[AxiMM2S2MMTest2.scala 24:21]
   assign rd_fifo_injectdbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 40:30]
@@ -1565,12 +1565,12 @@ module AxiMM2S2MMTest2(
   assign write_master_ctrl_start = axi_ctrl_start; // @[AxiMM2S2MMTest2.scala 60:27]
   assign write_master_ctrl_offset = wrDmaInfo_offset; // @[AxiMM2S2MMTest2.scala 67:28]
   assign write_master_ctrl_length = wrDmaInfo_wlength; // @[AxiMM2S2MMTest2.scala 68:28]
-  assign write_master_m_axi_awready = m_axi_awready; // @[AxiIO.scala 61:21]
-  assign write_master_m_axi_wready = m_axi_wready; // @[AxiIO.scala 66:20]
-  assign write_master_m_axi_bvalid = m_axi_bvalid; // @[AxiIO.scala 68:20]
+  assign write_master_m_axi_awready = m_axi_awready; // @[AxiIO.scala 63:21]
+  assign write_master_m_axi_wready = m_axi_wready; // @[AxiIO.scala 68:20]
+  assign write_master_m_axi_bvalid = m_axi_bvalid; // @[AxiIO.scala 70:20]
   assign write_master_s_tdata = wr_fifo_m_axis_tdata; // @[AxiMM2S2MMTest2.scala 86:24]
-  assign write_master_s_tkeep = wr_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 87:24]
   assign write_master_s_tvalid = wr_fifo_m_axis_tvalid; // @[AxiMM2S2MMTest2.scala 88:25]
+  assign write_master_s_tkeep = wr_fifo_m_axis_tkeep; // @[AxiMM2S2MMTest2.scala 87:24]
   assign wrDmaInfo_addr = axi_ctrl_write_addr; // @[AxiMM2S2MMTest2.scala 64:18]
   assign wrDmaInfo_blength = axi_ctrl_rw_length; // @[AxiMM2S2MMTest2.scala 65:21]
   assign wr_fifo_injectdbiterr_axis = 1'h0; // @[AxiMM2S2MMTest2.scala 79:30]

@@ -1,4 +1,4 @@
-# my_axi_vip
+# axi-vip-examples
 
 ## AxiLiteSlaveTest
 ![design_1](AxiLiteSlaveTest/design_1.png)

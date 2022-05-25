@@ -461,9 +461,9 @@ module AxiWriteMaster(
   output [3:0]  m_axi_wstrb,
   output        m_axi_wlast,
   input  [31:0] s_tdata,
-  input  [3:0]  s_tkeep,
   input         s_tvalid,
-  output        s_tready
+  output        s_tready,
+  input  [3:0]  s_tkeep
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -829,14 +829,14 @@ module AxiS2MMTest(
      *)
   input  [31:0] s_axis_tdata,
 
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TKEEP" *)
-  input  [3:0]  s_axis_tkeep,
-
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TVALID" *)
   input         s_axis_tvalid,
 
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TREADY" *)
-  output        s_axis_tready
+  output        s_axis_tready,
+
+  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TKEEP" *)
+  input  [3:0]  s_axis_tkeep
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -879,9 +879,9 @@ module AxiS2MMTest(
   wire [3:0] write_master_m_axi_wstrb; // @[AxiS2MMTest.scala 17:28]
   wire  write_master_m_axi_wlast; // @[AxiS2MMTest.scala 17:28]
   wire [31:0] write_master_s_tdata; // @[AxiS2MMTest.scala 17:28]
-  wire [3:0] write_master_s_tkeep; // @[AxiS2MMTest.scala 17:28]
   wire  write_master_s_tvalid; // @[AxiS2MMTest.scala 17:28]
   wire  write_master_s_tready; // @[AxiS2MMTest.scala 17:28]
+  wire [3:0] write_master_s_tkeep; // @[AxiS2MMTest.scala 17:28]
   wire [31:0] dmaInfo_addr; // @[AxiS2MMTest.scala 22:23]
   wire [31:0] dmaInfo_blength; // @[AxiS2MMTest.scala 22:23]
   wire [31:0] dmaInfo_offset; // @[AxiS2MMTest.scala 22:23]
@@ -928,9 +928,9 @@ module AxiS2MMTest(
     .m_axi_wstrb(write_master_m_axi_wstrb),
     .m_axi_wlast(write_master_m_axi_wlast),
     .s_tdata(write_master_s_tdata),
-    .s_tkeep(write_master_s_tkeep),
     .s_tvalid(write_master_s_tvalid),
-    .s_tready(write_master_s_tready)
+    .s_tready(write_master_s_tready),
+    .s_tkeep(write_master_s_tkeep)
   );
   DmaInfo dmaInfo ( // @[AxiS2MMTest.scala 22:23]
     .addr(dmaInfo_addr),
@@ -975,8 +975,8 @@ module AxiS2MMTest(
   assign write_master_m_axi_wready = m_axi_wready; // @[AxiS2MMTest.scala 18:22]
   assign write_master_m_axi_bvalid = m_axi_bvalid; // @[AxiS2MMTest.scala 18:22]
   assign write_master_s_tdata = s_axis_tdata; // @[AxiS2MMTest.scala 28:18]
-  assign write_master_s_tkeep = s_axis_tkeep; // @[AxiS2MMTest.scala 28:18]
   assign write_master_s_tvalid = s_axis_tvalid; // @[AxiS2MMTest.scala 28:18]
+  assign write_master_s_tkeep = s_axis_tkeep; // @[AxiS2MMTest.scala 28:18]
   assign dmaInfo_addr = axi_ctrl_write_addr; // @[AxiS2MMTest.scala 23:16]
   assign dmaInfo_blength = axi_ctrl_write_length; // @[AxiS2MMTest.scala 24:19]
   always @(posedge clock) begin
