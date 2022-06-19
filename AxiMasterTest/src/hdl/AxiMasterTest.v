@@ -1,3 +1,194 @@
+module AxiLiteControl(
+  input         clock,
+  input         reset,
+  input  [31:0] s_axi_araddr,
+  input         s_axi_arvalid,
+  output        s_axi_arready,
+  output [31:0] s_axi_rdata,
+  output        s_axi_rvalid,
+  input         s_axi_rready,
+  input  [31:0] s_axi_awaddr,
+  input         s_axi_awvalid,
+  output        s_axi_awready,
+  input  [31:0] s_axi_wdata,
+  input         s_axi_wvalid,
+  output        s_axi_wready,
+  output        s_axi_bvalid,
+  input         s_axi_bready,
+  output        wr_en,
+  output        rd_en,
+  output [11:0] wr_addr,
+  output [11:0] rd_addr,
+  output [31:0] wr_data,
+  input  [31:0] rd_data
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
+  reg [31:0] _RAND_2;
+  reg [31:0] _RAND_3;
+  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_5;
+  reg [31:0] _RAND_6;
+  reg [31:0] _RAND_7;
+  reg [31:0] _RAND_8;
+`endif // RANDOMIZE_REG_INIT
+  reg [31:0] rdata; // @[AxiLiteControl.scala 16:22]
+  reg  rvalid; // @[AxiLiteControl.scala 18:23]
+  reg  bvalid; // @[AxiLiteControl.scala 20:23]
+  reg  rd_req; // @[AxiLiteControl.scala 27:23]
+  reg  wr_req_0; // @[AxiLiteControl.scala 28:23]
+  reg  wr_req_1; // @[AxiLiteControl.scala 28:23]
+  reg [11:0] rd_addr_reg; // @[AxiLiteControl.scala 29:28]
+  reg [11:0] wr_addr_reg; // @[AxiLiteControl.scala 30:28]
+  reg [31:0] wr_data_reg; // @[AxiLiteControl.scala 31:28]
+  wire [31:0] _GEN_0 = s_axi_awready & s_axi_awvalid ? s_axi_awaddr : {{20'd0}, wr_addr_reg}; // @[AxiLiteControl.scala 37:41 38:17 30:28]
+  wire  _GEN_1 = s_axi_awready & s_axi_awvalid | wr_req_0; // @[AxiLiteControl.scala 37:41 39:15 28:23]
+  wire  _GEN_3 = s_axi_wready & s_axi_wvalid | wr_req_1; // @[AxiLiteControl.scala 42:39 44:15 28:23]
+  wire  _T_2 = bvalid & s_axi_bready; // @[AxiLiteControl.scala 47:16]
+  wire  _T_3 = ~bvalid; // @[AxiLiteControl.scala 49:16]
+  wire  _T_5 = ~bvalid & wr_req_0 & wr_req_1; // @[AxiLiteControl.scala 49:37]
+  wire  _GEN_4 = ~bvalid & wr_req_0 & wr_req_1 & (~_T_2 & _T_5); // @[AxiLiteControl.scala 49:51 51:11 14:9]
+  wire  _GEN_7 = ~bvalid & wr_req_0 & wr_req_1 | bvalid; // @[AxiLiteControl.scala 49:51 55:12 20:23]
+  wire [31:0] _GEN_16 = s_axi_arready & s_axi_arvalid ? s_axi_araddr : {{20'd0}, rd_addr_reg}; // @[AxiLiteControl.scala 62:41 63:17 29:28]
+  wire  _GEN_17 = s_axi_arready & s_axi_arvalid | rd_req; // @[AxiLiteControl.scala 62:41 64:12 27:23]
+  wire  _T_7 = rvalid & s_axi_rready; // @[AxiLiteControl.scala 67:16]
+  wire  _T_8 = ~rvalid; // @[AxiLiteControl.scala 69:16]
+  wire  _T_9 = ~rvalid & rd_req; // @[AxiLiteControl.scala 69:24]
+  wire  _GEN_18 = ~rvalid & rd_req & (~_T_7 & _T_9); // @[AxiLiteControl.scala 69:35 71:11 13:9]
+  wire  _GEN_21 = ~rvalid & rd_req | rvalid; // @[AxiLiteControl.scala 69:35 75:12 18:23]
+  wire [31:0] _GEN_28 = reset ? 32'h0 : _GEN_16; // @[AxiLiteControl.scala 29:{28,28}]
+  wire [31:0] _GEN_29 = reset ? 32'h0 : _GEN_0; // @[AxiLiteControl.scala 30:{28,28}]
+  assign s_axi_arready = ~rd_req & _T_8; // @[AxiLiteControl.scala 78:28]
+  assign s_axi_rdata = rdata; // @[AxiLiteControl.scala 21:15]
+  assign s_axi_rvalid = rvalid; // @[AxiLiteControl.scala 23:16]
+  assign s_axi_awready = ~wr_req_0 & _T_3; // @[AxiLiteControl.scala 58:31]
+  assign s_axi_wready = ~wr_req_1 & _T_3; // @[AxiLiteControl.scala 59:30]
+  assign s_axi_bvalid = bvalid; // @[AxiLiteControl.scala 25:16]
+  assign wr_en = bvalid & s_axi_bready ? 1'h0 : _GEN_4; // @[AxiLiteControl.scala 47:33 14:9]
+  assign rd_en = rvalid & s_axi_rready ? 1'h0 : _GEN_18; // @[AxiLiteControl.scala 67:33 13:9]
+  assign wr_addr = wr_addr_reg; // @[AxiLiteControl.scala 33:11]
+  assign rd_addr = rd_addr_reg; // @[AxiLiteControl.scala 32:11]
+  assign wr_data = wr_data_reg; // @[AxiLiteControl.scala 34:11 47:33]
+  always @(posedge clock) begin
+    if (reset) begin // @[AxiLiteControl.scala 16:22]
+      rdata <= 32'h0; // @[AxiLiteControl.scala 16:22]
+    end else if (!(rvalid & s_axi_rready)) begin // @[AxiLiteControl.scala 67:33]
+      if (~rvalid & rd_req) begin // @[AxiLiteControl.scala 69:35]
+        rdata <= rd_data; // @[AxiLiteControl.scala 72:11]
+      end
+    end
+    if (reset) begin // @[AxiLiteControl.scala 18:23]
+      rvalid <= 1'h0; // @[AxiLiteControl.scala 18:23]
+    end else if (rvalid & s_axi_rready) begin // @[AxiLiteControl.scala 67:33]
+      rvalid <= 1'h0; // @[AxiLiteControl.scala 68:12]
+    end else begin
+      rvalid <= _GEN_21;
+    end
+    if (reset) begin // @[AxiLiteControl.scala 20:23]
+      bvalid <= 1'h0; // @[AxiLiteControl.scala 20:23]
+    end else if (bvalid & s_axi_bready) begin // @[AxiLiteControl.scala 47:33]
+      bvalid <= 1'h0; // @[AxiLiteControl.scala 48:12]
+    end else begin
+      bvalid <= _GEN_7;
+    end
+    if (reset) begin // @[AxiLiteControl.scala 27:23]
+      rd_req <= 1'h0; // @[AxiLiteControl.scala 27:23]
+    end else if (rvalid & s_axi_rready) begin // @[AxiLiteControl.scala 67:33]
+      rd_req <= _GEN_17;
+    end else if (~rvalid & rd_req) begin // @[AxiLiteControl.scala 69:35]
+      rd_req <= 1'h0; // @[AxiLiteControl.scala 76:12]
+    end else begin
+      rd_req <= _GEN_17;
+    end
+    if (reset) begin // @[AxiLiteControl.scala 28:23]
+      wr_req_0 <= 1'h0; // @[AxiLiteControl.scala 28:23]
+    end else if (bvalid & s_axi_bready) begin // @[AxiLiteControl.scala 47:33]
+      wr_req_0 <= _GEN_1;
+    end else if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiLiteControl.scala 49:51]
+      wr_req_0 <= 1'h0; // @[AxiLiteControl.scala 56:12]
+    end else begin
+      wr_req_0 <= _GEN_1;
+    end
+    if (reset) begin // @[AxiLiteControl.scala 28:23]
+      wr_req_1 <= 1'h0; // @[AxiLiteControl.scala 28:23]
+    end else if (bvalid & s_axi_bready) begin // @[AxiLiteControl.scala 47:33]
+      wr_req_1 <= _GEN_3;
+    end else if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiLiteControl.scala 49:51]
+      wr_req_1 <= 1'h0; // @[AxiLiteControl.scala 56:12]
+    end else begin
+      wr_req_1 <= _GEN_3;
+    end
+    rd_addr_reg <= _GEN_28[11:0]; // @[AxiLiteControl.scala 29:{28,28}]
+    wr_addr_reg <= _GEN_29[11:0]; // @[AxiLiteControl.scala 30:{28,28}]
+    if (reset) begin // @[AxiLiteControl.scala 31:28]
+      wr_data_reg <= 32'h0; // @[AxiLiteControl.scala 31:28]
+    end else if (s_axi_wready & s_axi_wvalid) begin // @[AxiLiteControl.scala 42:39]
+      wr_data_reg <= s_axi_wdata; // @[AxiLiteControl.scala 43:17]
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  rdata = _RAND_0[31:0];
+  _RAND_1 = {1{`RANDOM}};
+  rvalid = _RAND_1[0:0];
+  _RAND_2 = {1{`RANDOM}};
+  bvalid = _RAND_2[0:0];
+  _RAND_3 = {1{`RANDOM}};
+  rd_req = _RAND_3[0:0];
+  _RAND_4 = {1{`RANDOM}};
+  wr_req_0 = _RAND_4[0:0];
+  _RAND_5 = {1{`RANDOM}};
+  wr_req_1 = _RAND_5[0:0];
+  _RAND_6 = {1{`RANDOM}};
+  rd_addr_reg = _RAND_6[11:0];
+  _RAND_7 = {1{`RANDOM}};
+  wr_addr_reg = _RAND_7[11:0];
+  _RAND_8 = {1{`RANDOM}};
+  wr_data_reg = _RAND_8[31:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
 module AxiControlSlave(
   input         clock,
   input         reset,
@@ -36,176 +227,133 @@ module AxiControlSlave(
   reg [31:0] _RAND_3;
   reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
-  reg [31:0] _RAND_6;
-  reg [31:0] _RAND_7;
-  reg [31:0] _RAND_8;
-  reg [31:0] _RAND_9;
-  reg [31:0] _RAND_10;
-  reg [31:0] _RAND_11;
-  reg [31:0] _RAND_12;
-  reg [31:0] _RAND_13;
-  reg [31:0] _RAND_14;
 `endif // RANDOMIZE_REG_INIT
-  reg [31:0] int_write_addr; // @[AxiControlSlave.scala 16:31]
-  reg [31:0] int_read_addr; // @[AxiControlSlave.scala 17:30]
-  reg [31:0] int_write_data_0; // @[AxiControlSlave.scala 18:31]
-  reg [31:0] int_write_data_1; // @[AxiControlSlave.scala 18:31]
-  reg [31:0] int_write_data_2; // @[AxiControlSlave.scala 18:31]
-  reg [31:0] int_write_data_3; // @[AxiControlSlave.scala 18:31]
-  reg [31:0] rdata; // @[AxiControlSlave.scala 23:22]
-  reg  rvalid; // @[AxiControlSlave.scala 25:23]
-  reg  bvalid; // @[AxiControlSlave.scala 27:23]
-  reg  rd_req; // @[AxiControlSlave.scala 34:23]
-  reg  wr_req_0; // @[AxiControlSlave.scala 35:23]
-  reg  wr_req_1; // @[AxiControlSlave.scala 35:23]
-  reg [11:0] rd_addr; // @[AxiControlSlave.scala 36:24]
-  reg [11:0] wr_addr; // @[AxiControlSlave.scala 37:24]
-  reg [31:0] wr_data; // @[AxiControlSlave.scala 38:24]
-  wire [31:0] _GEN_0 = s_axi_awready & s_axi_awvalid ? s_axi_awaddr : {{20'd0}, wr_addr}; // @[AxiControlSlave.scala 41:41 42:13 37:24]
-  wire  _GEN_1 = s_axi_awready & s_axi_awvalid | wr_req_0; // @[AxiControlSlave.scala 41:41 43:15 35:23]
-  wire  _GEN_3 = s_axi_wready & s_axi_wvalid | wr_req_1; // @[AxiControlSlave.scala 46:39 48:15 35:23]
-  wire  _T_3 = ~bvalid; // @[AxiControlSlave.scala 53:16]
-  wire [31:0] _GEN_4 = wr_addr == 12'h0 ? wr_data : 32'h0; // @[AxiControlSlave.scala 55:33 56:13 14:9]
-  wire [31:0] _GEN_11 = ~bvalid & wr_req_0 & wr_req_1 ? _GEN_4 : 32'h0; // @[AxiControlSlave.scala 53:51 14:9]
-  wire  _GEN_19 = ~bvalid & wr_req_0 & wr_req_1 | bvalid; // @[AxiControlSlave.scala 53:51 78:12 27:23]
-  wire [31:0] _GEN_23 = bvalid & s_axi_bready ? 32'h0 : _GEN_11; // @[AxiControlSlave.scala 51:33 14:9]
-  wire [31:0] _GEN_33 = s_axi_arready & s_axi_arvalid ? s_axi_araddr : {{20'd0}, rd_addr}; // @[AxiControlSlave.scala 85:41 86:13 36:24]
-  wire  _GEN_34 = s_axi_arready & s_axi_arvalid | rd_req; // @[AxiControlSlave.scala 85:41 87:12 34:23]
-  wire  _T_15 = ~rvalid; // @[AxiControlSlave.scala 92:16]
-  wire [11:0] _rdata_T = {6'h0,3'h0,1'h0,done_1,done_0}; // @[AxiControlSlave.scala 96:21]
-  wire [15:0] _GEN_35 = rd_addr == 12'h4 ? {{4'd0}, _rdata_T} : 16'hdead; // @[AxiControlSlave.scala 93:11 95:33 96:13]
-  wire [31:0] _GEN_36 = rd_addr == 12'h28 ? read_data_0 : {{16'd0}, _GEN_35}; // @[AxiControlSlave.scala 98:33 99:13]
-  wire [31:0] _GEN_37 = rd_addr == 12'h2c ? read_data_1 : _GEN_36; // @[AxiControlSlave.scala 101:33 102:13]
-  wire [31:0] _GEN_38 = rd_addr == 12'h30 ? read_data_2 : _GEN_37; // @[AxiControlSlave.scala 104:33 105:13]
-  wire  _GEN_42 = ~rvalid & rd_req | rvalid; // @[AxiControlSlave.scala 112:12 25:23 92:35]
-  wire [31:0] _GEN_48 = reset ? 32'h0 : _GEN_33; // @[AxiControlSlave.scala 36:{24,24}]
-  wire [31:0] _GEN_49 = reset ? 32'h0 : _GEN_0; // @[AxiControlSlave.scala 37:{24,24}]
-  assign s_axi_arready = ~rd_req & _T_15; // @[AxiControlSlave.scala 115:28]
-  assign s_axi_rdata = rdata; // @[AxiControlSlave.scala 28:15]
-  assign s_axi_rvalid = rvalid; // @[AxiControlSlave.scala 30:16]
-  assign s_axi_awready = ~wr_req_0 & _T_3; // @[AxiControlSlave.scala 81:31]
-  assign s_axi_wready = ~wr_req_1 & _T_3; // @[AxiControlSlave.scala 82:30]
-  assign s_axi_bvalid = bvalid; // @[AxiControlSlave.scala 32:16]
-  assign start = _GEN_23[11:0];
-  assign write_addr = int_write_addr; // @[AxiControlSlave.scala 19:14]
-  assign read_addr = int_read_addr; // @[AxiControlSlave.scala 20:13]
-  assign write_data_0 = int_write_data_0; // @[AxiControlSlave.scala 21:14]
-  assign write_data_1 = int_write_data_1; // @[AxiControlSlave.scala 21:14]
-  assign write_data_2 = int_write_data_2; // @[AxiControlSlave.scala 21:14]
-  assign write_data_3 = int_write_data_3; // @[AxiControlSlave.scala 21:14]
+  wire  axi_ctrl_clock; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_reset; // @[AxiControlSlave.scala 17:24]
+  wire [31:0] axi_ctrl_s_axi_araddr; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_arvalid; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_arready; // @[AxiControlSlave.scala 17:24]
+  wire [31:0] axi_ctrl_s_axi_rdata; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_rvalid; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_rready; // @[AxiControlSlave.scala 17:24]
+  wire [31:0] axi_ctrl_s_axi_awaddr; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_awvalid; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_awready; // @[AxiControlSlave.scala 17:24]
+  wire [31:0] axi_ctrl_s_axi_wdata; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_wvalid; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_wready; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_bvalid; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_s_axi_bready; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_wr_en; // @[AxiControlSlave.scala 17:24]
+  wire  axi_ctrl_rd_en; // @[AxiControlSlave.scala 17:24]
+  wire [11:0] axi_ctrl_wr_addr; // @[AxiControlSlave.scala 17:24]
+  wire [11:0] axi_ctrl_rd_addr; // @[AxiControlSlave.scala 17:24]
+  wire [31:0] axi_ctrl_wr_data; // @[AxiControlSlave.scala 17:24]
+  wire [31:0] axi_ctrl_rd_data; // @[AxiControlSlave.scala 17:24]
+  reg [31:0] int_write_addr; // @[AxiControlSlave.scala 26:31]
+  reg [31:0] int_read_addr; // @[AxiControlSlave.scala 27:30]
+  reg [31:0] int_write_data_0; // @[AxiControlSlave.scala 28:31]
+  reg [31:0] int_write_data_1; // @[AxiControlSlave.scala 28:31]
+  reg [31:0] int_write_data_2; // @[AxiControlSlave.scala 28:31]
+  reg [31:0] int_write_data_3; // @[AxiControlSlave.scala 28:31]
+  wire [31:0] _GEN_0 = axi_ctrl_wr_addr == 12'h0 ? axi_ctrl_wr_data : 32'h0; // @[AxiControlSlave.scala 35:33 36:13 14:9]
+  wire [31:0] _GEN_7 = axi_ctrl_wr_en ? _GEN_0 : 32'h0; // @[AxiControlSlave.scala 33:16 14:9]
+  wire [11:0] _rd_data_T = {6'h0,3'h0,1'h0,done_1,done_0}; // @[AxiControlSlave.scala 61:23]
+  wire [15:0] _GEN_14 = axi_ctrl_rd_addr == 12'h4 ? {{4'd0}, _rd_data_T} : 16'hdead; // @[AxiControlSlave.scala 58:11 60:33 61:15]
+  wire [31:0] _GEN_15 = axi_ctrl_rd_addr == 12'h28 ? read_data_0 : {{16'd0}, _GEN_14}; // @[AxiControlSlave.scala 63:33 64:15]
+  wire [31:0] _GEN_16 = axi_ctrl_rd_addr == 12'h2c ? read_data_1 : _GEN_15; // @[AxiControlSlave.scala 66:33 67:15]
+  wire [31:0] _GEN_17 = axi_ctrl_rd_addr == 12'h30 ? read_data_2 : _GEN_16; // @[AxiControlSlave.scala 69:33 70:15]
+  wire [31:0] _GEN_18 = axi_ctrl_rd_addr == 12'h34 ? read_data_3 : _GEN_17; // @[AxiControlSlave.scala 72:33 73:15]
+  AxiLiteControl axi_ctrl ( // @[AxiControlSlave.scala 17:24]
+    .clock(axi_ctrl_clock),
+    .reset(axi_ctrl_reset),
+    .s_axi_araddr(axi_ctrl_s_axi_araddr),
+    .s_axi_arvalid(axi_ctrl_s_axi_arvalid),
+    .s_axi_arready(axi_ctrl_s_axi_arready),
+    .s_axi_rdata(axi_ctrl_s_axi_rdata),
+    .s_axi_rvalid(axi_ctrl_s_axi_rvalid),
+    .s_axi_rready(axi_ctrl_s_axi_rready),
+    .s_axi_awaddr(axi_ctrl_s_axi_awaddr),
+    .s_axi_awvalid(axi_ctrl_s_axi_awvalid),
+    .s_axi_awready(axi_ctrl_s_axi_awready),
+    .s_axi_wdata(axi_ctrl_s_axi_wdata),
+    .s_axi_wvalid(axi_ctrl_s_axi_wvalid),
+    .s_axi_wready(axi_ctrl_s_axi_wready),
+    .s_axi_bvalid(axi_ctrl_s_axi_bvalid),
+    .s_axi_bready(axi_ctrl_s_axi_bready),
+    .wr_en(axi_ctrl_wr_en),
+    .rd_en(axi_ctrl_rd_en),
+    .wr_addr(axi_ctrl_wr_addr),
+    .rd_addr(axi_ctrl_rd_addr),
+    .wr_data(axi_ctrl_wr_data),
+    .rd_data(axi_ctrl_rd_data)
+  );
+  assign s_axi_arready = axi_ctrl_s_axi_arready; // @[AxiControlSlave.scala 18:9]
+  assign s_axi_rdata = axi_ctrl_s_axi_rdata; // @[AxiControlSlave.scala 18:9]
+  assign s_axi_rvalid = axi_ctrl_s_axi_rvalid; // @[AxiControlSlave.scala 18:9]
+  assign s_axi_awready = axi_ctrl_s_axi_awready; // @[AxiControlSlave.scala 18:9]
+  assign s_axi_wready = axi_ctrl_s_axi_wready; // @[AxiControlSlave.scala 18:9]
+  assign s_axi_bvalid = axi_ctrl_s_axi_bvalid; // @[AxiControlSlave.scala 18:9]
+  assign start = _GEN_7[11:0];
+  assign write_addr = int_write_addr; // @[AxiControlSlave.scala 29:14]
+  assign read_addr = int_read_addr; // @[AxiControlSlave.scala 30:13]
+  assign write_data_0 = int_write_data_0; // @[AxiControlSlave.scala 31:14]
+  assign write_data_1 = int_write_data_1; // @[AxiControlSlave.scala 31:14]
+  assign write_data_2 = int_write_data_2; // @[AxiControlSlave.scala 31:14]
+  assign write_data_3 = int_write_data_3; // @[AxiControlSlave.scala 31:14]
+  assign axi_ctrl_clock = clock;
+  assign axi_ctrl_reset = reset;
+  assign axi_ctrl_s_axi_araddr = s_axi_araddr; // @[AxiControlSlave.scala 18:9]
+  assign axi_ctrl_s_axi_arvalid = s_axi_arvalid; // @[AxiControlSlave.scala 18:9]
+  assign axi_ctrl_s_axi_rready = s_axi_rready; // @[AxiControlSlave.scala 18:9]
+  assign axi_ctrl_s_axi_awaddr = s_axi_awaddr; // @[AxiControlSlave.scala 18:9]
+  assign axi_ctrl_s_axi_awvalid = s_axi_awvalid; // @[AxiControlSlave.scala 18:9]
+  assign axi_ctrl_s_axi_wdata = s_axi_wdata; // @[AxiControlSlave.scala 18:9]
+  assign axi_ctrl_s_axi_wvalid = s_axi_wvalid; // @[AxiControlSlave.scala 18:9]
+  assign axi_ctrl_s_axi_bready = s_axi_bready; // @[AxiControlSlave.scala 18:9]
+  assign axi_ctrl_rd_data = axi_ctrl_rd_en ? _GEN_18 : 32'hdead; // @[AxiControlSlave.scala 58:11 59:16]
   always @(posedge clock) begin
-    if (reset) begin // @[AxiControlSlave.scala 16:31]
-      int_write_addr <= 32'h0; // @[AxiControlSlave.scala 16:31]
-    end else if (!(bvalid & s_axi_bready)) begin // @[AxiControlSlave.scala 51:33]
-      if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiControlSlave.scala 53:51]
-        if (wr_addr == 12'h10) begin // @[AxiControlSlave.scala 58:33]
-          int_write_addr <= wr_data; // @[AxiControlSlave.scala 59:22]
-        end
+    if (reset) begin // @[AxiControlSlave.scala 26:31]
+      int_write_addr <= 32'h0; // @[AxiControlSlave.scala 26:31]
+    end else if (axi_ctrl_wr_en) begin // @[AxiControlSlave.scala 33:16]
+      if (axi_ctrl_wr_addr == 12'h10) begin // @[AxiControlSlave.scala 38:33]
+        int_write_addr <= axi_ctrl_wr_data; // @[AxiControlSlave.scala 39:22]
       end
     end
-    if (reset) begin // @[AxiControlSlave.scala 17:30]
-      int_read_addr <= 32'h0; // @[AxiControlSlave.scala 17:30]
-    end else if (!(bvalid & s_axi_bready)) begin // @[AxiControlSlave.scala 51:33]
-      if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiControlSlave.scala 53:51]
-        if (wr_addr == 12'h14) begin // @[AxiControlSlave.scala 61:33]
-          int_read_addr <= wr_data; // @[AxiControlSlave.scala 62:21]
-        end
+    if (reset) begin // @[AxiControlSlave.scala 27:30]
+      int_read_addr <= 32'h0; // @[AxiControlSlave.scala 27:30]
+    end else if (axi_ctrl_wr_en) begin // @[AxiControlSlave.scala 33:16]
+      if (axi_ctrl_wr_addr == 12'h14) begin // @[AxiControlSlave.scala 41:33]
+        int_read_addr <= axi_ctrl_wr_data; // @[AxiControlSlave.scala 42:21]
       end
     end
-    if (reset) begin // @[AxiControlSlave.scala 18:31]
-      int_write_data_0 <= 32'h0; // @[AxiControlSlave.scala 18:31]
-    end else if (!(bvalid & s_axi_bready)) begin // @[AxiControlSlave.scala 51:33]
-      if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiControlSlave.scala 53:51]
-        if (wr_addr == 12'h18) begin // @[AxiControlSlave.scala 64:33]
-          int_write_data_0 <= wr_data; // @[AxiControlSlave.scala 65:25]
-        end
+    if (reset) begin // @[AxiControlSlave.scala 28:31]
+      int_write_data_0 <= 32'h0; // @[AxiControlSlave.scala 28:31]
+    end else if (axi_ctrl_wr_en) begin // @[AxiControlSlave.scala 33:16]
+      if (axi_ctrl_wr_addr == 12'h18) begin // @[AxiControlSlave.scala 44:33]
+        int_write_data_0 <= axi_ctrl_wr_data; // @[AxiControlSlave.scala 45:25]
       end
     end
-    if (reset) begin // @[AxiControlSlave.scala 18:31]
-      int_write_data_1 <= 32'h0; // @[AxiControlSlave.scala 18:31]
-    end else if (!(bvalid & s_axi_bready)) begin // @[AxiControlSlave.scala 51:33]
-      if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiControlSlave.scala 53:51]
-        if (wr_addr == 12'h1c) begin // @[AxiControlSlave.scala 67:33]
-          int_write_data_1 <= wr_data; // @[AxiControlSlave.scala 68:25]
-        end
+    if (reset) begin // @[AxiControlSlave.scala 28:31]
+      int_write_data_1 <= 32'h0; // @[AxiControlSlave.scala 28:31]
+    end else if (axi_ctrl_wr_en) begin // @[AxiControlSlave.scala 33:16]
+      if (axi_ctrl_wr_addr == 12'h1c) begin // @[AxiControlSlave.scala 47:33]
+        int_write_data_1 <= axi_ctrl_wr_data; // @[AxiControlSlave.scala 48:25]
       end
     end
-    if (reset) begin // @[AxiControlSlave.scala 18:31]
-      int_write_data_2 <= 32'h0; // @[AxiControlSlave.scala 18:31]
-    end else if (!(bvalid & s_axi_bready)) begin // @[AxiControlSlave.scala 51:33]
-      if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiControlSlave.scala 53:51]
-        if (wr_addr == 12'h20) begin // @[AxiControlSlave.scala 70:33]
-          int_write_data_2 <= wr_data; // @[AxiControlSlave.scala 71:25]
-        end
+    if (reset) begin // @[AxiControlSlave.scala 28:31]
+      int_write_data_2 <= 32'h0; // @[AxiControlSlave.scala 28:31]
+    end else if (axi_ctrl_wr_en) begin // @[AxiControlSlave.scala 33:16]
+      if (axi_ctrl_wr_addr == 12'h20) begin // @[AxiControlSlave.scala 50:33]
+        int_write_data_2 <= axi_ctrl_wr_data; // @[AxiControlSlave.scala 51:25]
       end
     end
-    if (reset) begin // @[AxiControlSlave.scala 18:31]
-      int_write_data_3 <= 32'h0; // @[AxiControlSlave.scala 18:31]
-    end else if (!(bvalid & s_axi_bready)) begin // @[AxiControlSlave.scala 51:33]
-      if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiControlSlave.scala 53:51]
-        if (wr_addr == 12'h24) begin // @[AxiControlSlave.scala 73:33]
-          int_write_data_3 <= wr_data; // @[AxiControlSlave.scala 74:25]
-        end
+    if (reset) begin // @[AxiControlSlave.scala 28:31]
+      int_write_data_3 <= 32'h0; // @[AxiControlSlave.scala 28:31]
+    end else if (axi_ctrl_wr_en) begin // @[AxiControlSlave.scala 33:16]
+      if (axi_ctrl_wr_addr == 12'h24) begin // @[AxiControlSlave.scala 53:33]
+        int_write_data_3 <= axi_ctrl_wr_data; // @[AxiControlSlave.scala 54:25]
       end
-    end
-    if (reset) begin // @[AxiControlSlave.scala 23:22]
-      rdata <= 32'h0; // @[AxiControlSlave.scala 23:22]
-    end else if (!(rvalid & s_axi_rready)) begin // @[AxiControlSlave.scala 90:33]
-      if (~rvalid & rd_req) begin // @[AxiControlSlave.scala 92:35]
-        if (rd_addr == 12'h34) begin // @[AxiControlSlave.scala 107:33]
-          rdata <= read_data_3; // @[AxiControlSlave.scala 108:13]
-        end else begin
-          rdata <= _GEN_38;
-        end
-      end
-    end
-    if (reset) begin // @[AxiControlSlave.scala 25:23]
-      rvalid <= 1'h0; // @[AxiControlSlave.scala 25:23]
-    end else if (rvalid & s_axi_rready) begin // @[AxiControlSlave.scala 90:33]
-      rvalid <= 1'h0; // @[AxiControlSlave.scala 91:12]
-    end else begin
-      rvalid <= _GEN_42;
-    end
-    if (reset) begin // @[AxiControlSlave.scala 27:23]
-      bvalid <= 1'h0; // @[AxiControlSlave.scala 27:23]
-    end else if (bvalid & s_axi_bready) begin // @[AxiControlSlave.scala 51:33]
-      bvalid <= 1'h0; // @[AxiControlSlave.scala 52:12]
-    end else begin
-      bvalid <= _GEN_19;
-    end
-    if (reset) begin // @[AxiControlSlave.scala 34:23]
-      rd_req <= 1'h0; // @[AxiControlSlave.scala 34:23]
-    end else if (rvalid & s_axi_rready) begin // @[AxiControlSlave.scala 90:33]
-      rd_req <= _GEN_34;
-    end else if (~rvalid & rd_req) begin // @[AxiControlSlave.scala 92:35]
-      rd_req <= 1'h0; // @[AxiControlSlave.scala 113:12]
-    end else begin
-      rd_req <= _GEN_34;
-    end
-    if (reset) begin // @[AxiControlSlave.scala 35:23]
-      wr_req_0 <= 1'h0; // @[AxiControlSlave.scala 35:23]
-    end else if (bvalid & s_axi_bready) begin // @[AxiControlSlave.scala 51:33]
-      wr_req_0 <= _GEN_1;
-    end else if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiControlSlave.scala 53:51]
-      wr_req_0 <= 1'h0; // @[AxiControlSlave.scala 79:12]
-    end else begin
-      wr_req_0 <= _GEN_1;
-    end
-    if (reset) begin // @[AxiControlSlave.scala 35:23]
-      wr_req_1 <= 1'h0; // @[AxiControlSlave.scala 35:23]
-    end else if (bvalid & s_axi_bready) begin // @[AxiControlSlave.scala 51:33]
-      wr_req_1 <= _GEN_3;
-    end else if (~bvalid & wr_req_0 & wr_req_1) begin // @[AxiControlSlave.scala 53:51]
-      wr_req_1 <= 1'h0; // @[AxiControlSlave.scala 79:12]
-    end else begin
-      wr_req_1 <= _GEN_3;
-    end
-    rd_addr <= _GEN_48[11:0]; // @[AxiControlSlave.scala 36:{24,24}]
-    wr_addr <= _GEN_49[11:0]; // @[AxiControlSlave.scala 37:{24,24}]
-    if (reset) begin // @[AxiControlSlave.scala 38:24]
-      wr_data <= 32'h0; // @[AxiControlSlave.scala 38:24]
-    end else if (s_axi_wready & s_axi_wvalid) begin // @[AxiControlSlave.scala 46:39]
-      wr_data <= s_axi_wdata; // @[AxiControlSlave.scala 47:13]
     end
   end
 // Register and memory initialization
@@ -256,24 +404,6 @@ initial begin
   int_write_data_2 = _RAND_4[31:0];
   _RAND_5 = {1{`RANDOM}};
   int_write_data_3 = _RAND_5[31:0];
-  _RAND_6 = {1{`RANDOM}};
-  rdata = _RAND_6[31:0];
-  _RAND_7 = {1{`RANDOM}};
-  rvalid = _RAND_7[0:0];
-  _RAND_8 = {1{`RANDOM}};
-  bvalid = _RAND_8[0:0];
-  _RAND_9 = {1{`RANDOM}};
-  rd_req = _RAND_9[0:0];
-  _RAND_10 = {1{`RANDOM}};
-  wr_req_0 = _RAND_10[0:0];
-  _RAND_11 = {1{`RANDOM}};
-  wr_req_1 = _RAND_11[0:0];
-  _RAND_12 = {1{`RANDOM}};
-  rd_addr = _RAND_12[11:0];
-  _RAND_13 = {1{`RANDOM}};
-  wr_addr = _RAND_13[11:0];
-  _RAND_14 = {1{`RANDOM}};
-  wr_data = _RAND_14[31:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
