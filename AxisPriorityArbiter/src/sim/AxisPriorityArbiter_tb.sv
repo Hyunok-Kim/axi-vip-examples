@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 06/20/2022 08:00:58 AM
+// Create Date: 06/20/2022 04:02:35 PM
 // Design Name: 
-// Module Name: AxisRRArbiter_tb
+// Module Name: AxisPriorityArbiter_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -25,7 +25,7 @@ import design_1_axi4stream_vip_2_0_pkg::*;
 import design_1_axi4stream_vip_3_0_pkg::*;
 import design_1_axi4stream_vip_4_0_pkg::*;
 
-module AxisRRArbiter_tb();
+module AxisPriorityArbiter_tb();
 bit aclk=0;
 bit aresetn = 0;
 always #5ns aclk = ~aclk;

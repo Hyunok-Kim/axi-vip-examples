@@ -39,3 +39,7 @@
 ## AxisRRArbiter
 ![design_1](AxisRRArbiter/design_1.png)
 ![axis round robin arbiter](AxisRRArbiter/axis_rr_arbiter.png)
+
+## AxisPriorityArbiter
+![design_1](AxisPriorityArbiter/design_1.png)
+![axis priority arbiter](AxisPriorityArbiter/axis_priority_arbiter.png)
