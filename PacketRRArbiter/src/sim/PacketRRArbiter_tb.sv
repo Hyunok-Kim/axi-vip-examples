@@ -56,8 +56,7 @@ initial begin
     
 end
 
-task my_thread(int idx);
-    automatic int i = idx;
+task automatic my_thread(int i);
     @(negedge clock);
     req[i] = 1;
     //@(negedge clock);
