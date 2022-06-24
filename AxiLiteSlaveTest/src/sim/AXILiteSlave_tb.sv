@@ -24,14 +24,8 @@ bit aclk = 0, aresetn = 0;
 bit[7:0] led_0, sw_0;
 always #5ns aclk = ~aclk;
 
-design_1_wrapper UUT
-(
-    .aclk(aclk),
-    .aresetn(aresetn),
-    .led_0(led_0),
-    .sw_0(sw_0)
-);
-test t1(aclk, aresetn, sw_0);
+design_1_wrapper UUT(.*);
+test t1(.*);
 endmodule
 
 import axi_vip_pkg::*;

@@ -24,12 +24,8 @@ bit aclk=0;
 bit aresetn = 0;
 always #5ns aclk = ~aclk;
 
-design_1_wrapper DUT
-(
-    .aclk(aclk),
-    .aresetn(aresetn)
-);
-test t1(aclk, aresetn);
+design_1_wrapper DUT(.*);
+test t1(.*);
 endmodule
 
 import axi4stream_vip_pkg::*;

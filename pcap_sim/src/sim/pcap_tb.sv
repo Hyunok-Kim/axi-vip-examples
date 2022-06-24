@@ -24,13 +24,9 @@ bit aclk=0;
 bit aresetn = 0;
 always #5ns aclk = ~aclk;
 
-design_1_wrapper DUT
-(
-    .aclk(aclk),
-    .aresetn(aresetn)
-);
+design_1_wrapper DUT(.*);
 
-test t1(aclk, aresetn);
+test t1(.*);
 endmodule
 
 // Regitser DPI-C routines
@@ -77,7 +73,6 @@ task master();
     axi4stream_transaction wr_transaction;
     int phandle, pkt_len;
     bit [7:0]    pkt [2000];
-    bit [7:0]    p_pkt [];
     bit [63:0]   sm_time;
 
     master_agent = new("master vip agent", DUT.design_1_i.axi4stream_vip_0.inst.IF);
@@ -95,10 +90,9 @@ task master();
     pv_get_pkt(phandle, pkt_len, pkt, sm_time);
     while (pkt_len != 0)
     begin
-        p_pkt = new [pkt_len] (pkt);
         mbox.put(pkt_len);
-        foreach (p_pkt[i]) begin
-            wr_transaction.set_data_beat(p_pkt[i]);
+        for (int i=0; i < pkt_len; i++) begin
+            wr_transaction.set_data_beat(pkt[i]);
             wr_transaction.set_keep_beat(1);
             if (i == pkt_len - 1) wr_transaction.set_last(1);
             else wr_transaction.set_last(0);
@@ -116,7 +110,7 @@ task slave();
     axi4stream_ready_gen ready_gen;
     axi4stream_transaction rd_transaction;
     int phandle, pkt_len;
-    bit [7:0]  p_pkt [];
+    bit [7:0]  pkt [];
     
     slave_agent = new("slave vip agent", DUT.design_1_i.axi4stream_vip_1.inst.IF);    
     slave_agent.vif_proxy.set_dummy_drive_type(XIL_AXI4STREAM_VIF_DRIVE_NONE);    
@@ -137,14 +131,14 @@ task slave();
     forever begin
         mbox.get(pkt_len);
         if (pkt_len == 0) break;
-        p_pkt = new [pkt_len];
+        pkt = new [pkt_len];
         for (int i=0; i<pkt_len; i++) begin
             slave_agent.monitor.item_collected_port.get(rd_transaction);
-            p_pkt[i] = rd_transaction.get_data_beat();
+            pkt[i] = rd_transaction.get_data_beat();
             last = rd_transaction.get_last();
             if (last) $display("pkt_len = %d", pkt_len);
         end
-        pv_dump_pkt(phandle, p_pkt.size, p_pkt, $time);
+        pv_dump_pkt(phandle, pkt.size, pkt, $time);
     end
     pv_shutdown(phandle);
     repeat(5) @(negedge aclk); 

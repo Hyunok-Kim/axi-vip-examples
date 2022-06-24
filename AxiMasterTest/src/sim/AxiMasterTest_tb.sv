@@ -26,14 +26,8 @@ bit aresetn = 0;
 bit wr_done = 0, rd_done = 0;
 always #5ns aclk = ~aclk;
 
-design_1_wrapper DUT
-(
-    .aclk(aclk),
-    .aresetn(aresetn),
-    .wr_done(wr_done),
-    .rd_done(rd_done)
-);
-test t1(aclk, aresetn, wr_done, rd_done);
+design_1_wrapper DUT(.*);
+test t1(.*);
 endmodule
 
 import axi_vip_pkg::*;

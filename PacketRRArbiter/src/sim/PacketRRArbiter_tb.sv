@@ -26,15 +26,7 @@ bit [3:0] req, fin, grant;
 bit ready=1;
 always #50ns clock = ~clock;
 
-PacketRRArbiter DUT
-(
-    .clock(clock),
-    .reset(reset),
-    .req(req),
-    .fin(fin),
-    .grant(grant),
-    .ready(ready)
-);
+PacketRRArbiter DUT(.*);
 
 initial begin
     repeat(5) @(negedge clock);
