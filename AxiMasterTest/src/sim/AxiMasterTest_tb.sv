@@ -140,6 +140,5 @@ initial begin
         $display("Data do not match, test failed");    
         
     repeat(5) @(negedge aclk);
-    $finish;
 end
 endprogram

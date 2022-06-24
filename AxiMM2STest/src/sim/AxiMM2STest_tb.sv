@@ -44,7 +44,6 @@ initial begin
         master();
 	slave();
     join_any
-    $finish;
 end
 task master();
     bit [31:0] addr_reg = 32'h4000_0000, addr_bram = 32'hC000_0000, addr_bram2 = 32'hD000_0000;

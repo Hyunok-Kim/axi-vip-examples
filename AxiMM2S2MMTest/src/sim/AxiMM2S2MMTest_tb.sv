@@ -95,6 +95,5 @@ initial begin
         $display("Data match, test succeeded");
     
     repeat(5) @(negedge aclk);
-    $finish;   
 end
 endprogram

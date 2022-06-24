@@ -73,7 +73,6 @@ task master();
     end    
 
     repeat(5) @(negedge aclk);
-    $finish;
 endtask
 
 task slave();

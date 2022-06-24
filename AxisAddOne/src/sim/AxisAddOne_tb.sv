@@ -44,7 +44,6 @@ initial begin
        master();
        slave();
     join_any
-    $finish;
 end
 task master();
     bit [31:0] data_wr;

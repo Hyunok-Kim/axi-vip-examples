@@ -69,7 +69,5 @@ initial begin
     master_agent.AXI4LITE_READ_BURST(base_addr + addr, 0, data, resp);
 
     repeat(5) @(negedge aclk);
-    $finish;
-    
 end 
 endprogram

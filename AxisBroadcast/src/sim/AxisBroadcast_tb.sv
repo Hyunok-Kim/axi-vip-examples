@@ -48,7 +48,6 @@ initial begin
 	slave2();
 	slave3();
     join
-    $finish;
 end
 task master();
     design_1_axi4stream_vip_0_0_mst_t master_agent;
