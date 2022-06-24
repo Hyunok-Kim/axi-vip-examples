@@ -18,12 +18,6 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-import axi4stream_vip_pkg::*;
-import design_1_axi4stream_vip_0_0_pkg::*;
-import design_1_axi4stream_vip_1_0_pkg::*;
-import design_1_axi4stream_vip_2_0_pkg::*;
-import design_1_axi4stream_vip_3_0_pkg::*;
-import design_1_axi4stream_vip_4_0_pkg::*;
 
 module AxisBroadcast_tb();
 bit aclk=0;
@@ -35,8 +29,28 @@ design_1_wrapper DUT
     .aclk(aclk),
     .aresetn(aresetn)
 );
+test t1(aclk, aresetn);
+endmodule
 
+import axi4stream_vip_pkg::*;
+import design_1_axi4stream_vip_0_0_pkg::*;
+import design_1_axi4stream_vip_1_0_pkg::*;
+import design_1_axi4stream_vip_2_0_pkg::*;
+import design_1_axi4stream_vip_3_0_pkg::*;
+import design_1_axi4stream_vip_4_0_pkg::*;
+
+program automatic test(input bit aclk, output bit aresetn);
 initial begin
+    fork
+        master();
+	slave0();
+	slave1();
+	slave2();
+	slave3();
+    join
+    $finish;
+end
+task master();
     design_1_axi4stream_vip_0_0_mst_t master_agent;
     axi4stream_transaction wr_transaction;
     master_agent = new("master vip agent", DUT.design_1_i.axi4stream_vip_0.inst.IF);
@@ -59,10 +73,9 @@ initial begin
     end
     
     repeat(10) @(negedge aclk);
-    $finish;
-end
+endtask
 
-initial begin
+task slave0();
     design_1_axi4stream_vip_1_0_slv_t slave_agent;
     axi4stream_ready_gen ready_gen;
     axi4stream_transaction rd_transaction;
@@ -79,10 +92,9 @@ initial begin
     wait (aresetn == 1);
     
     slave_agent.driver.send_tready(ready_gen);
+endtask
 
-end
-
-initial begin
+task slave1();
     design_1_axi4stream_vip_2_0_slv_t slave_agent;
     axi4stream_ready_gen ready_gen;
     axi4stream_transaction rd_transaction;
@@ -100,9 +112,9 @@ initial begin
     
     slave_agent.driver.send_tready(ready_gen);
 
-end
+endtask
 
-initial begin
+task slave2();
     design_1_axi4stream_vip_3_0_slv_t slave_agent;
     axi4stream_ready_gen ready_gen;
     axi4stream_transaction rd_transaction;
@@ -120,9 +132,9 @@ initial begin
     
     slave_agent.driver.send_tready(ready_gen);
 
-end
+endtask
 
-initial begin
+task slave3();
     design_1_axi4stream_vip_4_0_slv_t slave_agent;
     axi4stream_ready_gen ready_gen;
     axi4stream_transaction rd_transaction;
@@ -139,8 +151,5 @@ initial begin
     wait (aresetn == 1);
     
     slave_agent.driver.send_tready(ready_gen);
-
-end
-
-
-endmodule
+endtask
+endprogram

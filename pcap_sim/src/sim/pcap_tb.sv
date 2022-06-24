@@ -19,6 +19,20 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+module pcap_tb();
+bit aclk=0;
+bit aresetn = 0;
+always #5ns aclk = ~aclk;
+
+design_1_wrapper DUT
+(
+    .aclk(aclk),
+    .aresetn(aresetn)
+);
+
+test t1(aclk, aresetn);
+endmodule
+
 // Regitser DPI-C routines
 import "DPI-C" function void pv_register ();
 
@@ -45,85 +59,95 @@ import "DPI-C" function void pv_get_pkt (
 //  Shutdown a dumper after use
 import "DPI-C" function void pv_shutdown (
            input  int         phandle);  // active handler (port) to shutdown 
+           
+import axi4stream_vip_pkg::*;
+import design_1_axi4stream_vip_0_0_pkg::*;
+import design_1_axi4stream_vip_1_0_pkg::*;
 
-module pcap_tb();
-// local defines
-int phandle, phandle2, pkt_len;
-bit [7:0]    pkt [2000];
-bit [7:0]    p_pkt [];
-bit [63:0]   sm_time;
-int          i = 0;
+program automatic test(input bit aclk, output bit aresetn);
+mailbox mbox = new();
+initial begin
+    fork
+        master();
+        slave();
+    join
+    $finish;
+end
+task master();
+    design_1_axi4stream_vip_0_0_mst_t master_agent;
+    axi4stream_transaction wr_transaction;
+    int phandle, pkt_len;
+    bit [7:0]    pkt [2000];
+    bit [7:0]    p_pkt [];
+    bit [63:0]   sm_time;
 
-  initial
-  begin // {
-    // register pcap handle
-    pv_register ();
-
-    // open pcap handle for reading
-    pv_open (phandle, "sample-capture.pcap", 1);
+    master_agent = new("master vip agent", DUT.design_1_i.axi4stream_vip_0.inst.IF);
+    master_agent.vif_proxy.set_dummy_drive_type(XIL_AXI4STREAM_VIF_DRIVE_NONE);
+    master_agent.set_agent_tag("Master VIP");
+    //master_agent.set_verbosity(400)
+    wr_transaction = master_agent.driver.create_transaction("wr_transaction");
+    wr_transaction.set_delay(0); 
+    master_agent.start_master();
+    pv_register();
+    pv_open(phandle, "sample-capture.pcap", 1);
     
-    // open pcap handle for writting
-    pv_open (phandle2, "sample-dump.pcap", 0);
+    wait (aresetn == 1);
     
-
-    // get first pkt from phandle
-    pv_get_pkt (phandle, pkt_len, pkt, sm_time);
+    pv_get_pkt(phandle, pkt_len, pkt, sm_time);
     while (pkt_len != 0)
-    begin // {
-	// new pktlib for unpack
-        p_pkt = new [pkt_len] (pkt);
-
-        // display hdr and pkt content
-        $display("%0t : INFO    : TEST      : Unpack Pkt %0d", sm_time, i+1);
-        display_array8 (p_pkt, "", "NO", 1);
-        i++;
-        
-        // dump pcap 
-        pv_dump_pkt (phandle2, p_pkt.size, p_pkt, sm_time);
-
-        // get all pkt from phandle
-        pv_get_pkt (phandle, pkt_len, pkt, sm_time);
-    end // }
-    // end simulation
-    pv_shutdown (phandle2);
-    $finish ();
-  end // }
-
-  task display_array8 (bit [7:0]        data [],
-                       string           hname       = "", // string literals
-                       string           usr_comment = "NO",
-                       int              mode        = 0,
-                       int              n_atend     = 1); // {
-    $sformat (hname, "%16s", hname); 
-    for (int i = 0; i < 16 ; i++)
-    begin // {
-        if (i % 16 == 0)
-            $write ("%s :       %2d ", hname, i);
-        else if (i % 16 == 7)
-            $write ("%3d |", i);
-        else if (i % 16 == 15)
-            $write ("%3d\n", i);
-        else
-            $write ("%3d", i);
-    end // }
-    $write ("%s :        ~~~~~~~~~~~~~~~~~~~~~~~~|~~~~~~~~~~~~~~~~~~~~~~~~\n", hname);
-    for (int i = 0; i < data.size(); i++)
     begin
-        if (i % 16 == 0)
-            $write ("%s : %4d : ", hname, i);
-        $write ("%x ", data[i]);
-        if (i % 16 == 7)
-            $write ("| ");
-        if (i % 16 == 15)
-            $write ("\n");
+        p_pkt = new [pkt_len] (pkt);
+        mbox.put(pkt_len);
+        foreach (p_pkt[i]) begin
+            wr_transaction.set_data_beat(p_pkt[i]);
+            wr_transaction.set_keep_beat(1);
+            if (i == pkt_len - 1) wr_transaction.set_last(1);
+            else wr_transaction.set_last(0);
+            master_agent.driver.send(wr_transaction);
+        end
+        
+        pv_get_pkt(phandle, pkt_len, pkt, sm_time);
     end
-    if (data.size() % 16 !== 0)
-        $write ("\n");
-    $write ("%s :        ~~~~~~~~~~~~~~~~~~~~~~~~|~~~~~~~~~~~~~~~~~~~~~~~~\n", hname);
-    if (mode)
-        $write ("%s : (Total Len  = %0d)\n", hname, data.size());
-    repeat (n_atend)
-       $write ("\n");
-  endtask : display_array8 // }
-  
-endmodule
+    mbox.put(0);
+endtask
+
+task slave();
+    bit last;
+    design_1_axi4stream_vip_1_0_slv_t slave_agent;
+    axi4stream_ready_gen ready_gen;
+    axi4stream_transaction rd_transaction;
+    int phandle, pkt_len;
+    bit [7:0]  p_pkt [];
+    
+    slave_agent = new("slave vip agent", DUT.design_1_i.axi4stream_vip_1.inst.IF);    
+    slave_agent.vif_proxy.set_dummy_drive_type(XIL_AXI4STREAM_VIF_DRIVE_NONE);    
+    slave_agent.set_agent_tag("Slave VIP");
+    //slave_agent.set_verbosity(400);
+    ready_gen = slave_agent.driver.create_ready("ready_gen");
+    ready_gen.set_ready_policy(XIL_AXI4STREAM_READY_GEN_NO_BACKPRESSURE);
+    
+    slave_agent.start_slave();
+        
+    repeat(5) @(negedge aclk);
+    aresetn = 1;
+    
+    slave_agent.driver.send_tready(ready_gen);
+    
+    pv_open (phandle, "sample-dump.pcap", 0);
+    
+    forever begin
+        mbox.get(pkt_len);
+        if (pkt_len == 0) break;
+        p_pkt = new [pkt_len];
+        for (int i=0; i<pkt_len; i++) begin
+            slave_agent.monitor.item_collected_port.get(rd_transaction);
+            p_pkt[i] = rd_transaction.get_data_beat();
+            last = rd_transaction.get_last();
+            if (last) $display("pkt_len = %d", pkt_len);
+        end
+        pv_dump_pkt(phandle, p_pkt.size, p_pkt, $time);
+    end
+    pv_shutdown(phandle);
+    repeat(5) @(negedge aclk); 
+endtask
+endprogram

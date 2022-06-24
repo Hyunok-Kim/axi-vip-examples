@@ -18,12 +18,6 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-import axi4stream_vip_pkg::*;
-import design_1_axi4stream_vip_0_0_pkg::*;
-import design_1_axi4stream_vip_1_0_pkg::*;
-import design_1_axi4stream_vip_2_0_pkg::*;
-import design_1_axi4stream_vip_3_0_pkg::*;
-import design_1_axi4stream_vip_4_0_pkg::*;
 
 module AxisPriorityArbiter_tb();
 bit aclk=0;
@@ -36,7 +30,28 @@ design_1_wrapper DUT
     .aresetn(aresetn)
 );
 
+test t1(aclk, aresetn);
+endmodule
+
+import axi4stream_vip_pkg::*;
+import design_1_axi4stream_vip_0_0_pkg::*;
+import design_1_axi4stream_vip_1_0_pkg::*;
+import design_1_axi4stream_vip_2_0_pkg::*;
+import design_1_axi4stream_vip_3_0_pkg::*;
+import design_1_axi4stream_vip_4_0_pkg::*;
+
+program automatic test(input bit aclk, output bit aresetn);
 initial begin
+    fork
+        master0();
+        master1();
+        master2();
+        master3();
+        slave();
+    join
+    $finish;
+end
+task master0();
     design_1_axi4stream_vip_0_0_mst_t master_agent;
     axi4stream_transaction wr_transaction;
     master_agent = new("master0 vip agent", DUT.design_1_i.axi4stream_vip_0.inst.IF);
@@ -56,9 +71,9 @@ initial begin
         else wr_transaction.set_last(0);
         master_agent.driver.send(wr_transaction);
     end
-end
+endtask
 
-initial begin
+task master1();
     design_1_axi4stream_vip_1_0_mst_t master_agent;
     axi4stream_transaction wr_transaction;
     master_agent = new("master1 vip agent", DUT.design_1_i.axi4stream_vip_1.inst.IF);
@@ -78,9 +93,9 @@ initial begin
         else wr_transaction.set_last(0);
         master_agent.driver.send(wr_transaction);
     end
-end
+endtask
 
-initial begin
+task master2();
     design_1_axi4stream_vip_2_0_mst_t master_agent;
     axi4stream_transaction wr_transaction;
     master_agent = new("master2 vip agent", DUT.design_1_i.axi4stream_vip_2.inst.IF);
@@ -100,9 +115,9 @@ initial begin
         else wr_transaction.set_last(0);
         master_agent.driver.send(wr_transaction);
     end
-end
+endtask
 
-initial begin
+task master3();
     design_1_axi4stream_vip_3_0_mst_t master_agent;
     axi4stream_transaction wr_transaction;
     master_agent = new("master3 vip agent", DUT.design_1_i.axi4stream_vip_3.inst.IF);
@@ -122,9 +137,9 @@ initial begin
         else wr_transaction.set_last(0);
         master_agent.driver.send(wr_transaction);
     end
-end
+endtask
 
-initial begin
+task slave();
     bit [31:0] data;
     bit last;
     int ret = 0;
@@ -154,8 +169,5 @@ initial begin
         if (ret == 8) break;
     end
     repeat(5) @(negedge aclk);
-    $finish;
- 
-end
-
-endmodule
+endtask
+endprogram

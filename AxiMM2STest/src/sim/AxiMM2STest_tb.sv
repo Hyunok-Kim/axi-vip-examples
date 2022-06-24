@@ -19,18 +19,9 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-import axi_vip_pkg::*;
-import design_1_axi_vip_0_0_pkg::*;
-import axi4stream_vip_pkg::*;
-import design_1_axi4stream_vip_0_0_pkg::*;
-
 module AxiMM2STest_tb();
 bit aclk=0;
 bit aresetn = 0;
-bit [31:0] addr_reg = 32'h4000_0000, addr_bram = 32'hC000_0000, addr_bram2 = 32'hD000_0000;
-bit [31:0] data_wr, data_rd, data_rd2;
-bit [3:0] data_keep;
-int i;
 always #5ns aclk = ~aclk;
 
 design_1_wrapper DUT
@@ -39,27 +30,39 @@ design_1_wrapper DUT
     .aresetn(aresetn)
 );
 
+test t1(aclk, aresetn);
+endmodule
 
-design_1_axi_vip_0_0_mst_t master_agent;
-xil_axi_resp_t resp;
-design_1_axi4stream_vip_0_0_slv_t slave_agent;
-axi4stream_ready_gen ready_gen;
-axi4stream_transaction rd_transaction;
+import axi_vip_pkg::*;
+import design_1_axi_vip_0_0_pkg::*;
+import axi4stream_vip_pkg::*;
+import design_1_axi4stream_vip_0_0_pkg::*;
 
+program automatic test(input bit aclk, output bit aresetn);
 initial begin
+    fork
+        master();
+	slave();
+    join_any
+    $finish;
+end
+task master();
+    bit [31:0] addr_reg = 32'h4000_0000, addr_bram = 32'hC000_0000, addr_bram2 = 32'hD000_0000;
+    bit [31:0] data_wr, data_rd;
+    design_1_axi_vip_0_0_mst_t master_agent;
+    xil_axi_resp_t resp;
     master_agent = new("master vip agent",DUT.design_1_i.axi_vip_0.inst.IF);  
     master_agent.set_agent_tag("Master VIP");  
     //master_agent.set_verbosity(400);   
     master_agent.start_master();
     
-    for (i=0; i<5; i++)
-    @(negedge aclk);
+    repeat(5) @(negedge aclk);
     
     aresetn = 1;
 
     @(negedge aclk);
 
-    for (i=0; i<256; i++) begin
+    for (int i=0; i<256; i++) begin
         data_wr[7:0] = i*4;
         data_wr[15:8] = i*4+1;
         data_wr[23:16] = i*4+2;
@@ -69,7 +72,7 @@ initial begin
     end
  
 /*  
-    for (i=0; i<256; i++) begin    
+    for (int i=0; i<256; i++) begin    
         master_agent.AXI4LITE_READ_BURST(addr_bram2+i*4, 0, data_rd, resp);
         $display("data_rd = 0x%x", data_rd);
         
@@ -84,13 +87,15 @@ initial begin
         master_agent.AXI4LITE_READ_BURST(addr_reg+32'h004, 0, data_rd, resp);
     end
     
-    for (i=0; i<5; i++)
-    @(negedge aclk);
-    $finish;
-        
-end
+    repeat(5) @(negedge aclk);
+endtask
 
-initial begin
+task slave();
+    bit [31:0] data_rd2;
+    bit [3:0] data_keep;
+    design_1_axi4stream_vip_0_0_slv_t slave_agent;
+    axi4stream_ready_gen ready_gen;
+    axi4stream_transaction rd_transaction;
     slave_agent = new("slave vip agent", DUT.design_1_i.axi4stream_vip_0.inst.IF);    
     slave_agent.vif_proxy.set_dummy_drive_type(XIL_AXI4STREAM_VIF_DRIVE_NONE);    
     slave_agent.set_agent_tag("Slave VIP");
@@ -110,7 +115,5 @@ initial begin
         data_keep = rd_transaction.get_keep_beat();
         $display("data_rd2 = 0x%x, data_keep = 0x%x", data_rd2, data_keep);
     end
-
-end
-
-endmodule
+endtask
+endprogram

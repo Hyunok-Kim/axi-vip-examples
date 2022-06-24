@@ -19,15 +19,9 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-import axi_vip_pkg::*;
-import design_1_axi_vip_0_0_pkg::*;
-
-
 module AXILiteSlave_tb();
 bit aclk = 0, aresetn = 0;
 bit[7:0] led_0, sw_0;
-bit[31:0] addr, data, base_addr = 32'h4000_0000, sw_state;
-int i;
 always #5ns aclk = ~aclk;
 
 design_1_wrapper UUT
@@ -37,18 +31,23 @@ design_1_wrapper UUT
     .led_0(led_0),
     .sw_0(sw_0)
 );
+test t1(aclk, aresetn, sw_0);
+endmodule
 
-design_1_axi_vip_0_0_mst_t master_agent;
-xil_axi_resp_t resp;
+import axi_vip_pkg::*;
+import design_1_axi_vip_0_0_pkg::*;
 
+program automatic test(input bit aclk, output bit aresetn, output bit sw_0);
 initial begin
+    bit[31:0] addr, data, base_addr = 32'h4000_0000, sw_state;
+    design_1_axi_vip_0_0_mst_t master_agent;
+    xil_axi_resp_t resp;
     master_agent = new("master vip agent", UUT.design_1_i.axi_vip_0.inst.IF);
     master_agent.set_agent_tag("Master VIP");
     //master_agent.set_verbosity(400);
     master_agent.start_master();
     
-    for (i=0; i<5; i++)
-    @(negedge aclk);
+    repeat(5) @(negedge aclk);
 
     aresetn = 1;
     
@@ -69,10 +68,8 @@ initial begin
     addr = 4;
     master_agent.AXI4LITE_READ_BURST(base_addr + addr, 0, data, resp);
 
-    for (i=0; i<5; i++)
-    @(negedge aclk);
+    repeat(5) @(negedge aclk);
     $finish;
     
 end 
-
-endmodule
+endprogram

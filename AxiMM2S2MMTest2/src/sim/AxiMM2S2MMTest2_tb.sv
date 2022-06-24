@@ -19,16 +19,9 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-import axi_vip_pkg::*;
-import design_1_axi_vip_0_0_pkg::*;
-
 module AxiMM2S2MMTest2_tb();
 bit aclk=0;
 bit aresetn = 0;
-bit [31:0] addr_reg = 32'h4000_0000, addr_bram = 32'hC000_0000, addr_bram2 = 32'hD000_0000;
-bit [31:0] data_wr, data_rd, data_ret;
-bit not_matched;
-int i,j;
 always #5ns aclk = ~aclk;
 
 design_1_wrapper DUT
@@ -36,18 +29,26 @@ design_1_wrapper DUT
     .aclk(aclk),
     .aresetn(aresetn)
 );
+test t1(aclk, aresetn);
+endmodule
 
-design_1_axi_vip_0_0_mst_t master_agent;
-xil_axi_resp_t resp;
+import axi_vip_pkg::*;
+import design_1_axi_vip_0_0_pkg::*;
 
+program automatic test(input bit aclk, output bit aresetn);
 initial begin
+    bit [31:0] addr_reg = 32'h4000_0000, addr_bram = 32'hC000_0000, addr_bram2 = 32'hD000_0000;
+    bit [31:0] data_wr, data_rd, data_ret;
+    bit not_matched;
+    int i,j;
+    design_1_axi_vip_0_0_mst_t master_agent;
+    xil_axi_resp_t resp;
     master_agent = new("master vip agent",DUT.design_1_i.axi_vip_0.inst.IF);  
     master_agent.set_agent_tag("Master VIP");  
     //master_agent.set_verbosity(400);   
     master_agent.start_master();
     
-    for (i=0; i<5; i++)
-    @(negedge aclk);
+    repeat(5) @(negedge aclk);
     
     aresetn = 1;
 
@@ -93,11 +94,7 @@ initial begin
     else
         $display("Data match, test succeeded");
     
-    for (i=0; i<5; i++)
-    @(negedge aclk);
+    repeat(5) @(negedge aclk);
     $finish;   
-    
-    
 end
-
-endmodule
+endprogram

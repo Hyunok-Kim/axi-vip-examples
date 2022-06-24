@@ -17,6 +17,7 @@ if { [string first $current_vivado_version $scripts_vivado_version] == -1 } {
 
 # Configuration - Can be modified by the user
 set project_name 				pcap_sim
+set BD_name                                     design_1
 
 # Create a new project
 create_project $project_name ./$project_name -part xc7z020clg484-1
@@ -45,3 +46,30 @@ set_property -name {xsim.elaborate.xelab.more_options} -value {-sv_lib pcap_dpi}
 add_files -fileset sim_1 -norecurse -scan_for_includes ./$file_path/sim
 import_files -fileset sim_1 -norecurse ./$file_path/sim
 import_files -fileset sim_1 -norecurse [glob -nocomplain ./src/others/*]
+
+set design_name         $BD_name
+
+# Build the Block Design
+if { [string first $current_vivado_version "2021.2"] != -1 } {
+        source ./$file_path/tcl/bd.tcl
+}
+
+# Validate the BD
+regenerate_bd_layout
+validate_bd_design
+save_bd_design
+
+#Generate the wrapper
+make_wrapper -files [get_files ${BD_name}.bd] -top
+
+# Add the wrapper to the fileset
+set obj [get_filesets sources_1]
+set files [list "[file normalize [glob "./$project_name/$project_name.gen/sources_1/bd/$BD_name/hdl/${BD_name}_wrapper.v"]]"]
+add_files -norecurse -fileset $obj $files
+
+set_property top design_1_wrapper [current_fileset]
+update_compile_order -fileset sources_1
+set_property top pcap_tb [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+update_compile_order -fileset sim_1
+
