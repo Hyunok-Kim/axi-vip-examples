@@ -1,6 +1,7 @@
 *
 !.gitignore
 !*/
+!/common/**
 !/*/src/**
 !/*/*.png
 !/*/create_proj.tcl

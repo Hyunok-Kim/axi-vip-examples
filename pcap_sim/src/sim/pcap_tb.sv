@@ -29,40 +29,15 @@ design_1_wrapper DUT(.*);
 test t1(.*);
 endmodule
 
-// Regitser DPI-C routines
-import "DPI-C" function void pv_register ();
-
-//  Create a new dumper (port)
-import "DPI-C" function void pv_open (
-           output int         phandle,   // handler or port number of new dumper
-           input  string      pcap_file, // filename  
-           input  int         pcap_type = 0);// 0 -> writting, 1 -> reading
-
-//  Dump a packet to an active dumper
-import "DPI-C" function void pv_dump_pkt (
-           input  int         phandle,   // active handler (port) to dump pkt
-           input  int         pkt_len,   // length of packet
-           input  bit [7:0]   in_pkt[],  // Packet array
-           input  bit [63:0]  nstime);   // simulation time in ns
-
-//  Dump a packet to an active dumper
-import "DPI-C" function void pv_get_pkt (
-           input  int         phandle,   // active handler (port) to dump pkt
-           output int         pkt_len,   // length of packet
-           output bit [7:0]   in_pkt[],  // Packet array
-           output bit [63:0]  nstime);   // simulation time in ns
-
-//  Shutdown a dumper after use
-import "DPI-C" function void pv_shutdown (
-           input  int         phandle);  // active handler (port) to shutdown 
-           
+`include "../pcap_dpi/pcap_dpi.sv"
 import axi4stream_vip_pkg::*;
 import design_1_axi4stream_vip_0_0_pkg::*;
 import design_1_axi4stream_vip_1_0_pkg::*;
 
 program automatic test(input bit aclk, output bit aresetn);
-mailbox mbox = new();
+mailbox mbox;
 initial begin
+    mbox = new();
     fork
         master();
         slave();

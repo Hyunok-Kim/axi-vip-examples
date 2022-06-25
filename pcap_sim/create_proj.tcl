@@ -46,6 +46,8 @@ set_property -name {xsim.elaborate.xelab.more_options} -value {-sv_lib pcap_dpi}
 add_files -fileset sim_1 -norecurse -scan_for_includes ./$file_path/sim
 import_files -fileset sim_1 -norecurse ./$file_path/sim
 import_files -fileset sim_1 -norecurse [glob -nocomplain ./src/others/*]
+import_files -fileset sim_1 -norecurse ../common/pcap_dpi/pcap_dpi.so ../common/pcap_dpi/pcap_dpi.sv
+
 
 set design_name         $BD_name
 

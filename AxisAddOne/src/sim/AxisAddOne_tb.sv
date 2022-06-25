@@ -34,8 +34,9 @@ import design_1_axi4stream_vip_0_0_pkg::*;
 import design_1_axi4stream_vip_1_0_pkg::*;
 
 program automatic test(input bit aclk, output bit aresetn);
-mailbox mbox = new();
+mailbox mbox;
 initial begin
+    mbox = new();
     fork
        master();
        slave();
