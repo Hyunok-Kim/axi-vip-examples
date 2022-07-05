@@ -47,3 +47,8 @@
 ## AxisBroadcast
 ![design_1](AxisBroadcast/design_1.png)
 ![axis broadcast](AxisBroadcast/axis_broadcast.png)
+
+## AxisFifo
+![design_1](AxisFifo/design_1.png)
+![axis fifo](AxisFifo/axis_fifo.png)
+
