@@ -67,7 +67,7 @@ task receiver();
     bit[31:0] base_addr = 32'h4000_0000, data, n, j;
     design_1_axi_vip_0_0_mst_t receiver_agent;
     xil_axi_resp_t resp;
-    receiver_agent = new("master vip agent", DUT.design_1_i.axi_vip_0.inst.IF);
+    receiver_agent = new("receiver vip agent", DUT.design_1_i.axi_vip_0.inst.IF);
     receiver_agent.set_agent_tag("Receiver VIP");
     //receiver_agent.set_verbosity(400);
     receiver_agent.start_master();  

@@ -56,3 +56,7 @@
 ![design_1](AxisFifoRead/design_1.png)
 ![axis fifo read](AxisFifoRead/axis_fifo_read.png)
 
+## AxisFifoWrite
+![design_1](AxisFifoWrite/design_1.png)
+![axis fifo write](AxisFifoWrite/axis_fifo_write.png)
+
